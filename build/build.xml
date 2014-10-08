@@ -1,0 +1,16 @@
+<project name="simple" default="build.game" basedir="../SimpleRPG/">
+	<echo message="base dir is ${basedir}"/>
+	
+	<property file="build.properties"/>
+	
+	<target name="build.game" depends="build.main"/>
+	
+	<target name="build.template">
+		<mxmlc file=>
+			
+		</mxmlc>
+	</target>
+	<target name="build.main">
+		<antcall target="build.template" >
+	</target>
+</project>
