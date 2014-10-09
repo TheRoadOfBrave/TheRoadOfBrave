@@ -1,16 +1,40 @@
-<project name="simple" default="build.game" basedir="../SimpleRPG/">
+<project name="simple" default="build.game" basedir="../">
+	<!--工程路径-->
 	<echo message="base dir is ${basedir}"/>
+	<!--加入配置-->
+	<property file="build/build.properties"/>
+	<!--flex库路径-->
+	<echo message="FLEX_HOME is ${FLEX_HOME}"/>
+	<taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<taskdef name="compc" classname="flex.ant.CompcTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<taskdef name="html-wrapper" classname="flex.ant.HtmlWrapperTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+	<taskdef name="asdoc" classname="flex.ant.AsDocTask" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 	
-	<property file="build.properties"/>
-	
+	<!--编译整个游戏-->
 	<target name="build.game" depends="build.main"/>
 	
+	<!--编译模版-->
 	<target name="build.template">
-		<mxmlc file=>
-			
+		<echo message="${basedir}\SimpleRPG\src\SimpleRPG.as"/>
+		<echo message="${basedir}\SimpleRPG\swf\SimpleRPG.swf"/>
+		<mxmlc file="${basedir}\SimpleRPG\src\SimpleRPG.as"
+			output="${basedir}\SimpleRPG\swf\SimpleRPG.swf"
+			default-frame-rate="30"
+			fork="true"
+			maxmemory="1024m">
+			<!--源路径-->
+			<!--<south-path path-element="">-->
+			<!--库路径-->
+			<!--<library-path dir="" append="true">
+				<include name="" />
+			</library-path>-->
 		</mxmlc>
 	</target>
+	
+	<!--编译游戏主程序-->
 	<target name="build.main">
 		<antcall target="build.template" >
+			<!--<param name="" value=""/>-->
+		</antcall>
 	</target>
 </project>
