@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			
+			public function set vcolor(v:uint):void{
+				
+			}
+			[Bindable]
+			public function get vcolor():uint{
+				return data.value>data.base?0x00ff00:0xff0000;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:Label text="{data.name}"/>
+	<s:Label x="40" y="0" text="{data.base}"/>
+	<s:Label x="68" y="0" color="#772929" fontSize="14" text="→"/>
+	<s:Label x="90" y="0" fontSize="13" fontWeight="bold"   text="{data.value}" color="{data.value>=data.base?0x009900:0x990000}">
+	<!--	<s:filters>
+			<s:GlowFilter blurX="2" blurY="2" color="0x000000" strength="10"/>
+		</s:filters>-->	
+	</s:Label>
+	<mx:HRule x="3" y="16" width="125"/>
+	
+</s:ItemRenderer>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<troops>
+	<troop>
+		<id>1</id>
+		<name>第一队</name>
+		<members>
+			<member enemy_id="1" x="60" y="100" hidden="0" immortal="0"/>
+		</members>
+		<pages></pages>	 
+	</troop>
+       	<troop>
+		<id>2</id>
+		<name>第2队</name>
+		<members>
+			<member enemy_id="3" x="10" y="300" hidden="0" immortal="0"/>
+			<member enemy_id="1" x="50" y="300" hidden="0" immortal="0"/>
+		</members>
+		<pages></pages>	 
+	</troop>
+	<troop>
+		<id>3</id>
+		<name>第3队</name>
+		<members>
+			<member enemy_id="5" x="10" y="100" hidden="0" immortal="0"/>
+			<member enemy_id="4" x="50" y="200" hidden="0" immortal="0"/>
+			<member enemy_id="5" x="150" y="100" hidden="0" immortal="0"/>	
+		</members>
+		<pages></pages>	 
+	</troop>			
+</troops>

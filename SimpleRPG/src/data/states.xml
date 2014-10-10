@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<states>
+	<state>
+		<id>1</id>
+		<name>濒死</name>
+		<icon_index>1</icon_index>
+		<restriction>4</restriction >
+		<priority>100</priority >
+		<remove_at_battle_end>0</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>0</auto_removal_timing >
+		<hold_turn>0</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<message>倒下了！</message>
+		<message>被打倒了！</message>
+		<message></message>
+		<message>又站起来了！</message>
+		<note>1号状态会在体力值为零时自动附加。</note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>2</id>
+		<name>中毒</name>
+		<icon_index>2</icon_index>
+		<restriction>0</restriction >
+		<priority>65</priority >
+		<remove_at_battle_end>0</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>0</auto_removal_timing >
+		<hold_turn>0</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<message>身上冒出毒气！</message>
+		<message>身上冒出毒气！</message>
+		<message></message>
+		<message>中的毒消失了！</message>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>3</id>
+		<name>黑暗</name>
+		<icon_index>3</icon_index>
+		<restriction>0</restriction >
+		<priority>70</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>1</auto_removal_timing >
+		<hold_turn>3-5</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<message>眼前一片黑暗！</message>
+		<message>眼前一片黑暗！</message>
+		<message></message>
+		<message>眼前回复了光明！</message>
+		<features>
+			<feature>22,0,-0.6,0</feature>
+		</features>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>4</id>
+		<name>沉默</name>
+		<icon_index>4</icon_index>
+		<restriction>0</restriction >
+		<priority>75</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>1</auto_removal_timing >
+		<hold_turn>3-5</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<message>的魔法被封印了！</message>
+		<message>的魔法被封印了！</message>
+		<message></message>
+		<message>的魔法封印解除了！</message>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>5</id>
+		<name>混乱</name>
+		<icon_index>9</icon_index>
+		<restriction>3</restriction >
+		<priority>80</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>1</auto_removal_timing >
+		<hold_turn>2-4</hold_turn>
+		<chance_by_damage>50</chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,7,-0.1,0</feature>
+		</features>
+		<message>正陷入混乱中！</message>
+		<message>正陷入混乱中！</message>
+		<message></message>
+		<message>找回了自我！</message>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>6</id>
+		<name>睡眠</name>
+		<icon_index>6</icon_index>
+		<restriction>0</restriction >
+		<priority>85</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>1</auto_removal_timing >
+		<hold_turn>3-5</hold_turn>
+		<chance_by_damage>100</chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,0,-1,0</feature>
+		</features>
+		<message>睡着了!</message>
+		<message>睡着了!</message>
+		<message>熟睡不醒……</message>
+		<message>醒过来了!</message>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>7</id>
+		<name>麻痹</name>
+		<icon_index>7</icon_index>
+		<restriction>4</restriction >
+		<priority>90</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>1</auto_removal_timing >
+		<hold_turn>4-6</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>22,0,-1,0</feature>
+		</features>
+		<message>的身体不能行动了！</message>
+		<message>被麻痹了！</message>
+		<message>的身体还是不能行动！</message>
+		<message>的麻痹解除了！</message>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>8</id>
+		<name>眩晕</name>
+		<icon_index>5</icon_index>
+		<restriction>4</restriction >
+		<priority>60</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>0</remove_by_restriction >
+		<auto_removal_timing>2</auto_removal_timing >
+		<hold_turn>3-5</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+		
+		</features>
+		<message>的身体失去了平衡！</message>
+		<message>的身体失去了平衡！</message>
+		<message>还没有找回平衡……</message>
+		<message>站稳了！</message>
+		<note></note>
+		<desc></desc>
+	</state>
+	<state>
+		<id>9</id>
+		<name>防御</name>
+		<icon_index>iconurl</icon_index>
+		<restriction>0</restriction >
+		<priority>0</priority >
+		<remove_at_battle_end>1</remove_at_battle_end >
+		<remove_by_restriction>1</remove_by_restriction >
+		<auto_removal_timing>2</auto_removal_timing >
+		<hold_turn>1</hold_turn>
+		<chance_by_damage></chance_by_damage >
+		<steps_to_remove>0</steps_to_remove>
+		<features>
+			<feature>62,1,0,0</feature>
+		</features>
+		<message></message>
+		<message></message>
+		<message></message>
+		<message></message>
+		<note></note>
+		<desc></desc>
+	</state>
+	
+</states>

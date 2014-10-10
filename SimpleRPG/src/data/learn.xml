@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<learns>
+	<talent>
+		<id>1</id>
+		<name>冲撞</name>
+		<icon_name></icon_name>
+		<description></description>
+		<skill_id>1</skill_id>
+		<occasion>1</occasion>
+		<speed>40</speed>
+		<cost>1</cost>
+		<base_damage>20</base_damage>
+		<atk>100</atk>
+		<spi>20</spi>
+		<agi>60</agi>
+		<int>10</int>
+		<hit>90</hit>
+		<pdef></pdef>
+		<mdef></mdef>
+		<element_set></element_set>
+		<plus_state_set></plus_state_set>
+		<minus_state_set></minus_state_set>
+		<note></note> 
+	</talent>
+	
+	
+</learns>

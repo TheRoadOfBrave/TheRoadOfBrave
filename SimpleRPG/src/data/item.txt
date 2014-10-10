@@ -1,0 +1,5 @@
+﻿id	name	icon	animation	desc	features	note	itype	price	consumable	scope	occasion	speed	repeats	damage	hit_type	hit	tp_gain	effects
+1	恢复药	193	37	草本精华		普通恢复药水	1	100	1	7	1	0	1	3;2;10;0	0	1	0	11,0,0,25
+2	高级恢复药	193	37				1	500	1	7	1	0	1	3;2;10;0	0	1	0	1;0;25
+3	魔力药	192	37				1	200	1	7	1	0	1	3;2;10;0	0	1	0	1;0;25
+4	解毒剂	194	37				1	60	1	7	1	0	1	3;2;10;0	0	1	0	1;0;25

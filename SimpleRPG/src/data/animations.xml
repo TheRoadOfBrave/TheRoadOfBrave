@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+	<animation id="1"  pos="1">
+		<se frame="1"  snd="fire1"/>
+		<flash frame="10"  dur="21"  target="1" color="#aaaa11" />
+	</animation>
+	<animation id="Fire1"  pos="2">
+		<se frame="1"  snd="fire4"/>
+		<flash frame="3"  dur="15"  target="1" color="#FF6622" />
+	</animation>
+  <animation id="Fire2"  pos="2">
+		<se frame="1"  snd="fire6"/>
+		<flash frame="4"  dur="20"  target="1" color="#FF6622" />
+		<flash frame="6"  dur="12"  target="3" color="#FFAA00" />
+	</animation>
+	<animation id="Ice1"  pos="2">
+		<se frame="1"  snd="ice4"/>
+		<se frame="1"  snd="thunder1"/>
+		<flash frame="8"  dur="10"  target="1" color="#BBEEFF" />
+	</animation>
+	<animation id="Ice2"  pos="1">
+		<se frame="1"  snd="ice8"/>
+		<flash frame="2"  dur="10"  target="3" color="#CCEEFF" />
+		<flash frame="5"  dur="10"  target="1" color="#CCEEFF" />
+		<flash frame="12"  dur="10"  target="1" color="#CCEEFF" />
+		<se frame="20"  snd="thunder3"/>
+		<se frame="20"  snd="ice4"/>
+		<flash frame="22"  dur="10"  target="1" color="#CCEEFF" />
+		<flash frame="24"  dur="4"  target="3" color="#FFFFFF" />
+	</animation>
+	<animation id="Ice3"  pos="2">
+		<se frame="1"  snd="ice9"/>
+		<se frame="3"  snd="ice6"/>
+		<flash frame="4"  dur="20"  target="3" color="#FFFFFF" />
+		<flash frame="5"  dur="8"  target="1" color="#FFFFFF" />
+	</animation>
+	<animation id="Thunder1"  pos="2">
+		<se frame="1"  snd="thunder5"/>
+		<flash frame="3"  dur="4"  target="3" color="#FFFFAA" />
+		<flash frame="6"  dur="8"  target="1" color="#FFFF00" />
+	</animation>
+	<animation id="Thunder2"  pos="1">
+		<se frame="1"  snd="thunder10"/>
+		<se frame="7"  snd="thunder8"/>
+		<flash frame="8"  dur="12"  target="1" color="#FFFF33" />
+	</animation>
+	<animation id="Wind1"  pos="1">
+		<se frame="1"  snd="wind5"/>
+		<flash frame="6"  dur="6"  target="1" color="#CCDD77" />
+		<flash frame="8"  dur="6"  target="2" color="#CCDD77" />
+	</animation>
+	<animation id="Wind3"  pos="3">
+		<se frame="1"  snd="wind5"/>
+		<se frame="3"  snd="wind8"/>
+		<flash frame="4"  dur="30"  target="3" color="#FFDDBB" />
+		<flash frame="8"  dur="6"  target="1" color="#FFDDBB" />
+		<flash frame="20"  dur="6"  target="1" color="#FFDDBB" />
+		<flash frame="35"  dur="6"  target="1" color="#FFDDBB" />
+		<flash frame="47"  dur="6"  target="1" color="#FFDDBB" />
+	</animation>
+</animations>
