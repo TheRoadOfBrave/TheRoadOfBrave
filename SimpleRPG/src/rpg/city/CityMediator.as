@@ -46,6 +46,9 @@ package rpg.city
 			view.addEventListener(MouseEvent.CLICK,click);
 			party=Party.getInstance();
 			
+			//城市视图加入后 ，游戏初始化完成 ，跳转到 第一个场景
+			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
+			
 		}
 		
 		override public function destroy():void
@@ -167,7 +170,7 @@ package rpg.city
 						
 						dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_ZONE));
 						break;
-					case "shop":
+					case "shopBtn":
 						
 						dispatch(new WindowEvent(WindowEvent.OPEN,WindowConst.SHOP));
 						break;

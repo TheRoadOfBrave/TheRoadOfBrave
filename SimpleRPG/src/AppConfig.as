@@ -16,14 +16,21 @@ package
 	import rpg.city.CityMediator;
 	import rpg.city.CityView;
 	import rpg.command.InitDataCommand;
+	import rpg.command.SceneCommand;
 	import rpg.command.ScriptCommand;
 	import rpg.command.ShopCommand;
 	import rpg.command.StartupCommand;
+	import rpg.command.WindowCommand;
 	import rpg.events.AppEvent;
+	import rpg.events.SceneEvent;
+	import rpg.events.WindowEvent;
 	import rpg.map.ZoneMediator;
 	import rpg.map.ZoneModel;
 	import rpg.map.ZoneView;
 	import rpg.mediator.GameMediator;
+	import rpg.shop.ShopMediator;
+	import rpg.shop.ShopModel;
+	import rpg.shop.view.ShopView;
 	
 	
 	public class AppConfig implements IConfig
@@ -59,6 +66,7 @@ package
 		//	injector.map(AppModel).toSingleton(AppModel);
 			injector.map(BattleScene).asSingleton();
 			injector.map(ZoneModel).asSingleton();
+			injector.map(ShopModel).asSingleton();
 		}
 		
 		private function mediators():void
@@ -66,6 +74,7 @@ package
 			mediatorMap.map(Application).toMediator(GameMediator);
 			mediatorMap.map(CityView).toMediator(CityMediator);
 			mediatorMap.map(ZoneView).toMediator(ZoneMediator);
+			mediatorMap.map(ShopView).toMediator(ShopMediator);
 		}
 		
 		private function commands():void
@@ -76,6 +85,11 @@ package
 			
 			commandMap.map(  BattleEvent.PROCESS_EVENT, BattleEvent).toCommand(ProcessBattleEventCommand);
 			commandMap.map(  BattleEvent.RESUME_BATTLE, BattleEvent).toCommand(ResumeBattleCommand);
+			
+			
+			commandMap.map(  SceneEvent.GOTO, SceneEvent).toCommand(SceneCommand);
+			commandMap.map(  WindowEvent.OPEN, WindowEvent).toCommand(WindowCommand);
+			commandMap.map(  WindowEvent.CLOSE, WindowEvent).toCommand(WindowCommand);
 			
 			
 			//游戏脚本相关命令

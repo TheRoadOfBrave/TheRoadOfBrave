@@ -1,12 +1,13 @@
 package rpg.shop
 {
-	import flash.events.Event;
 	
-	import mx.collections.ArrayList;
 	
+	
+	import org.flexlite.domUI.collections.ArrayCollection;
+	
+	import robotlegs.bender.bundles.mvcs.Mediator;
 	
 	import rpg.DataBase;
-	import rpg.bag.view.BagView;
 	import rpg.events.ItemEvent;
 	import rpg.model.Party;
 	import rpg.shop.view.ShopView;
@@ -14,7 +15,6 @@ package rpg.shop
 	import rpg.vo.EquipItem;
 	import rpg.vo.IPackItem;
 	import rpg.vo.Item;
-	import rpg.vo.PackVo;
 	
 	public class ShopMediator extends Mediator
 	{
@@ -30,12 +30,12 @@ package rpg.shop
 			super();
 		}
 		
-		override public function onRegister():void
+		override public function initialize():void
 		{
 			party=Party.getInstance();
 			db=DataBase.getInstance();
 			var item:Item=db.getItem(1);
-			var list:ArrayList=new ArrayList(model.goods);
+			var list:ArrayCollection=new ArrayCollection(model.goods);
 //			item.num=1
 //			list.addItem(item);
 //			var item:Item=db.getItem(2)
@@ -76,15 +76,16 @@ package rpg.shop
 //			item.num=1
 //			list.addItem(eq);
 			
-			view.dp=list;
-			view.gold_lb.text=party.gold.toString();
+			view.dpArr=list;
+			view.dpArr.refresh();
+			view.list.dataProvider=view.dpArr;
 			view.list.addEventListener(ItemEvent.BUY,buyHandler);
 			
 			//view.party=party;
 		}
 		
 		
-		override public function onRemove():void
+		override public function destroy():void
 		{
 			view.list.removeEventListener(ItemEvent.BUY,buyHandler);
 		}
@@ -98,7 +99,6 @@ package rpg.shop
 				}
 			party.gold-=item.price;
 			party.gain_item(item,item.num);
-			view.gold_lb.text=party.gold.toString();
 		}
 		
 		private function clone():IPackItem

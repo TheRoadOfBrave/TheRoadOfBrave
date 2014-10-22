@@ -15,8 +15,6 @@ package rpg.command
 	
 	public class StartupCommand extends Command
 	{
-		//[Inject]
-	//	public var server:Server;
 		[Inject]
 		public var dispatcher:IEventDispatcher;
 		
@@ -40,8 +38,7 @@ package rpg.command
 			
 			//dispatch(new GameEvent(GameEvent.SETUP_LOGGER));
 			dispatcher.dispatchEvent(new AppEvent(AppEvent.STARTUP_COMPLETE))
-			dispatcher.dispatchEvent(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
-			
+			//
 			
 		}
 	}

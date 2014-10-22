@@ -1,14 +1,11 @@
 package rpg.command
 {
-	import org.robotlegs.mvcs.Command;
+	import robotlegs.bender.bundles.mvcs.Command;
 	
-	import rpg.GameMain;
-	import rpg.WindowConst;
 	import rpg.events.SceneEvent;
 	import rpg.events.WindowEvent;
 	import rpg.manager.WindowManager;
 	
-	import spark.components.Group;
 	
 	public class SceneCommand extends Command
 	{

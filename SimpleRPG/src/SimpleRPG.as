@@ -18,6 +18,7 @@ package
 			context.run(this);
 			app=new Application;
 			addChild(app);
+			
 		}
 		
 	}
