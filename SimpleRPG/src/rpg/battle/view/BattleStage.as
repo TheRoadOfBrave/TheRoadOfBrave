@@ -43,7 +43,7 @@ package rpg.battle.view
 			background.graphics.endFill();
 			monsterBox=new Sprite;
 			animationBox=new Sprite;
-			addChild(background);
+			//addChild(background);
 			addChild(monsterBox);
 			addChild(animationBox);
 		}

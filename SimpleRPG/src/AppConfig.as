@@ -1,7 +1,5 @@
 package
 {
-	import rpg.events.AppEvent;
-	
 	import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
 	import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
 	import robotlegs.bender.framework.api.IConfig;
@@ -18,10 +16,14 @@ package
 	import rpg.city.CityMediator;
 	import rpg.city.CityView;
 	import rpg.command.InitDataCommand;
-	import rpg.command.StartupCommand;
-	import rpg.mediator.GameMediator;
 	import rpg.command.ScriptCommand;
 	import rpg.command.ShopCommand;
+	import rpg.command.StartupCommand;
+	import rpg.events.AppEvent;
+	import rpg.map.ZoneMediator;
+	import rpg.map.ZoneModel;
+	import rpg.map.ZoneView;
+	import rpg.mediator.GameMediator;
 	
 	
 	public class AppConfig implements IConfig
@@ -56,12 +58,14 @@ package
 		{
 		//	injector.map(AppModel).toSingleton(AppModel);
 			injector.map(BattleScene).asSingleton();
+			injector.map(ZoneModel).asSingleton();
 		}
 		
 		private function mediators():void
 		{
 			mediatorMap.map(Application).toMediator(GameMediator);
 			mediatorMap.map(CityView).toMediator(CityMediator);
+			mediatorMap.map(ZoneView).toMediator(ZoneMediator);
 		}
 		
 		private function commands():void

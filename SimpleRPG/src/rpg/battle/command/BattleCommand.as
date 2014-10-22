@@ -88,11 +88,11 @@ package rpg.battle.command
 			}
 		}
 		
-		public function setup(troopId:uint):void{
+		public function setup(id:uint):void{
 			var party:Party=Party.getInstance();
 			var cpuTroop:MonsterTroop=new MonsterTroop();
-			
-			cpuTroop.setup(troopId);
+			cpuTroop.setMonster(id);
+		//	cpuTroop.setup(troopId);
 			
 			
 			battleScene.setupParty(party);

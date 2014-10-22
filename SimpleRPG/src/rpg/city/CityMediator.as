@@ -163,10 +163,9 @@ package rpg.city
 					/*	model.needRefresh=true;
 					model.eventObjs[3].start();
 						model.update();*/
-						var cmdEvent:ScriptCmdEvent=new ScriptCmdEvent(ScriptCmdEvent.EXE_BATTLE_COMMAND);
-						cmdEvent.code=301
-						cmdEvent.params=[0,1]
-						dispatch(cmdEvent);
+						
+						
+						dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_ZONE));
 						break;
 					case "shop":
 						

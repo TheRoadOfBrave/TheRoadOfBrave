@@ -54,7 +54,7 @@ package rpg.mediator
 			view.addEventListener(Event.ENTER_FRAME,updateHandler);
 			
 			view.battleView=battleScene.view;
-			
+			battleScene.view.actorWnd=view.statusPanel;
 			//游戏MASTER设置
 			view.setup();
 			//转到第一个场景
@@ -144,11 +144,10 @@ package rpg.mediator
 					break;
 				case WindowConst.SCENE_ZONE:
 					//view.battleGroup.addElement(battleScene.view);
-					var party:Party=Party.getInstance()
+					//var party:Party=Party.getInstance()
 					battleScene.dispose();
-					battleScene.setupParty(party);
 					
-					battleScene.setup();
+					//battleScene.setup();
 					
 					break;
 				default:

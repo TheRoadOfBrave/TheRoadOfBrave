@@ -348,7 +348,8 @@ package rpg.model
 		 * 
 		 */
 		public function  change_equip(slot_id:uint, item:EquipItem):void{
-			if (trade_item_with_party(item, equips[slot_id])==false) return ;
+			//不交换背包里的装备
+			//if (trade_item_with_party(item, equips[slot_id])==false) return ;
 			//装备与 装备栏位置的 类型不符
 			if (item && equip_slots[slot_id] != item.etype_id) return ;
 			

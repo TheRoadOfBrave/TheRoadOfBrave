@@ -22,7 +22,6 @@ package rpg
 	import rpg.battle.view.ActorWindowBox;
 	import rpg.battle.view.BattleStage;
 	import rpg.battle.view.BattleView;
-	import rpg.battle.view.SkillWindow;
 	import rpg.events.SceneEvent;
 	import rpg.model.Actor;
 	import rpg.model.BattleModel;
@@ -102,9 +101,6 @@ package rpg
 			//			cmdMediator.addEventListener(ActorCommandMediator.START_SELECT_SKILL,showSkillWindow);
 			actDisplayer=new ActionMediator(view,model);
 			
-			model.addEventListener(BattleModel.SELECT_ENEMY,selectEnemy);
-			model.addEventListener(BattleModel.SELECT_ACTOR,selectActor);
-			
 			model.addEventListener(BattleModel.TURN_STAR,startMainHandler);
 			model.addEventListener(BattleModel.TURN_STAR,process_event);
 			model.addEventListener(BattleModel.END_ACTION,process_battle_event);
@@ -142,6 +138,7 @@ package rpg
 				scripts=DataBase.getTroopEvents(model.cpuTroop.troopId);
 				battleStage.createFriends(model.party);
 				battleStage.createEnemies(model.cpuTroop);
+				view.monsterBar.monster=model.cpuTroop.members[0]
 				//				view.actorWindows2.setActors(model.cpuTroop.members);
 				//				view.partyCmdWnd.visible=true;
 				//				view.zoneCmdWnd.visible=false;
@@ -397,30 +394,15 @@ package rpg
 //			view.msgWindow.clear();
 //			view.msgWindow.showMsg("打倒了敌人，玩家胜利！\nclick...")
 //			showWinResult();
-			
+			closeResult();
 		}
 		
 		private function gameOver(evt:Event):void{
 //			view.msgWindow.visible=true;
 //			view.msgWindow.clear();
 //			view.msgWindow.showMsg("团队全灭，游戏结束！")
-//			
+			closeResult();
 		}
-		
-		
-		private function selectEnemy(evt:Event):void{
-		//	view.battleStage.canSelectEnemys(true);
-			
-		}
-		
-		private function selectActor(evt:Event):void{
-		//	view.actorWindows.canSelect(true);
-			
-		}
-		
-		
-		
-		
 		
 		
 		
@@ -450,7 +432,7 @@ package rpg
 		 * @param event
 		 * 
 		 */
-		protected function closeResult(event:Event):void
+		protected function closeResult(event:Event=null):void
 		{
 			view.hideResultBox();
 //			var items:Array=view.resultbox.arrList.source;
@@ -465,12 +447,12 @@ package rpg
 //					}
 //				}
 //			)
-//			model.party.gold+=gold;
+		//	model.party.gold+=gold;
 //			
 //			
-//			model.reset();
-//			view.reset();
-//			dispatch(new BattleEvent(BattleEvent.FINISH));
+			model.reset();
+			view.reset();
+			dispatch(new BattleEvent(BattleEvent.FINISH));
 			//model.party.gain_item();
 		}
 		
