@@ -57,7 +57,13 @@ package rpg.command
 							item.num=obj.n;
 							item.price=obj.price;
 							goods.push(item);
+						}else if (obj.type==2){
+							item=db.getWeapon(obj.id);
+							item.num=obj.n;
+							item.price=obj.price;
+							goods.push(item);
 						}
+						
 					}
 					
 					shop.goods=goods;

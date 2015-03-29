@@ -43,7 +43,7 @@ package rpg.battle.view
 			background.graphics.endFill();
 			monsterBox=new Sprite;
 			animationBox=new Sprite;
-			addChild(background);
+			//addChild(background);
 			addChild(monsterBox);
 			addChild(animationBox);
 		}
@@ -54,10 +54,21 @@ package rpg.battle.view
 			
 		}
 		
+		public function escape():void
+		{
+			
+			TweenMax.allTo(enemySprites,1.6,{alpha:0},0,clear);
+		}
+		
 		public function clear():void{
 			while (monsterBox.numChildren>0){
 				monsterBox.removeChildAt(0);
 			}
+			
+			enemySprites=[];
+			friendSprites=[];
+			
+			clearAnimations();
 		}
 		
 		private function createBattler(troop:Troop):Array{
@@ -72,7 +83,7 @@ package rpg.battle.view
 				var battlerSp:BattlerSprite=new BattlerSprite(skin, battler)
 				battlerArray.push(battlerSp);
 				
-				battlerSp.move(180+200*i,60)
+				battlerSp.move(180+200*i,80)
 				
 				i++;
 			}
@@ -94,8 +105,9 @@ package rpg.battle.view
 			enemySprites=createBattler(troop);
 			var i:int=1
 			for each(var battlerSp:BattlerSprite in enemySprites){
-				battlerSp.move(240*i,180)
+				battlerSp.move(240*i,200)
 				monsterBox.addChild( battlerSp);
+				TweenLite.from(battlerSp,1,{alpha:0.3});
 				i++;
 			}
 			
@@ -230,6 +242,7 @@ package rpg.battle.view
 			//TweenLite.from(sp,1,{x:sp.x+5,y:sp.y+5,ease:Bounce.easeInOut});
 			
 		}
+		
 		
 	}
 }

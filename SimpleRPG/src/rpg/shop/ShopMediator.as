@@ -1,20 +1,23 @@
 package rpg.shop
 {
-	import flash.events.Event;
 	
-	import mx.collections.ArrayList;
 	
+	
+	import org.flexlite.domUI.collections.ArrayCollection;
+	import org.flexlite.domUI.components.Alert;
+	
+	import robotlegs.bender.bundles.mvcs.Mediator;
 	
 	import rpg.DataBase;
-	import rpg.bag.view.BagView;
+	import rpg.events.GameEvent;
 	import rpg.events.ItemEvent;
+	import rpg.model.Actor;
 	import rpg.model.Party;
 	import rpg.shop.view.ShopView;
 	import rpg.vo.BaseItem;
 	import rpg.vo.EquipItem;
 	import rpg.vo.IPackItem;
 	import rpg.vo.Item;
-	import rpg.vo.PackVo;
 	
 	public class ShopMediator extends Mediator
 	{
@@ -30,25 +33,13 @@ package rpg.shop
 			super();
 		}
 		
-		override public function onRegister():void
+		override public function initialize():void
 		{
 			party=Party.getInstance();
 			db=DataBase.getInstance();
 			var item:Item=db.getItem(1);
-			var list:ArrayList=new ArrayList(model.goods);
-//			item.num=1
-//			list.addItem(item);
-//			var item:Item=db.getItem(2)
-//			item.num=1
-//			list.addItem(item);
-//			var item:Item=db.getItem(3);
-//			item.num=1
-//			list.addItem(item);
-//			var item:Item=db.getItem(4);
-//			item.num=1
-//			list.addItem(item);
-//			
-			var eq:EquipItem=db.getWeapon(1);
+
+		/*	var eq:EquipItem=db.getWeapon(1);
 			item.num=1
 			list.addItem(eq);
 			var eq:EquipItem=db.getWeapon(2);
@@ -56,35 +47,30 @@ package rpg.shop
 			list.addItem(eq);
 			var eq:EquipItem=db.getWeapon(3);
 			item.num=1
-			list.addItem(eq);
-//			var eq:EquipItem=db.getWeapon(300);
-//			item.num=1
-//			list.addItem(eq);
-//			var eq:EquipItem=db.getWeapon(401);
-//			item.num=1
-//			list.addItem(eq);
-//			var eq:EquipItem=db.getWeapon(502);
-//			item.num=1
-//			list.addItem(eq);
-//			var eq:EquipItem=db.getWeapon(600);
-//			item.num=1
-//			list.addItem(eq);
-			var eq:EquipItem=db.getWeapon(701);
-			item.num=1
-			list.addItem(eq);
-//			var eq:EquipItem=db.getWeapon(901);
-//			item.num=1
-//			list.addItem(eq);
-			
-			view.dp=list;
-			view.gold_lb.text=party.gold.toString();
+			list.addItem(eq);*/
+
+
+			view.dpArr=getItemCollection();
+			view.dpArr.refresh();
+			view.list.dataProvider=view.dpArr;
 			view.list.addEventListener(ItemEvent.BUY,buyHandler);
 			
 			//view.party=party;
 		}
 		
+		private function getItemCollection():ArrayCollection{
+			var list:ArrayCollection=new ArrayCollection();
+			for (var i:int = 0; i < model.goods.length; i++) 
+			{
+				var obj:Object={item:model.goods[i],has:false};
+				list.addItem(obj);
+			}
+			
+			return list;
+		}
 		
-		override public function onRemove():void
+		
+		override public function destroy():void
 		{
 			view.list.removeEventListener(ItemEvent.BUY,buyHandler);
 		}
@@ -93,12 +79,28 @@ package rpg.shop
 		protected function buyHandler(event:ItemEvent):void
 		{
 			var item:IPackItem=event.item;
+			if (party.gold<item.price){
+				Alert.show("金钱不足！不能购买");
+			}else{
 				if (item is EquipItem){
 					item=db.getWeapon(BaseItem(item).id);
+					var hero:Actor=party.actors[0];
+					var eq:EquipItem=item as EquipItem;
+					if(hero.equippable(eq)){
+						var slot:uint=hero.empty_slot(eq.etype_id);
+						if (slot>=0){
+							hero.change_equip(slot,eq);
+							
+						}
+					}
 				}
-			party.gold-=item.price;
-			party.gain_item(item,item.num);
-			view.gold_lb.text=party.gold.toString();
+				party.gold-=item.price;
+				party.gain_item(item,item.num);
+				view.updateItem(item);
+				
+				dispatch(new GameEvent(GameEvent.CHANGE_EQUIP,item));
+			}
+				
 		}
 		
 		private function clone():IPackItem

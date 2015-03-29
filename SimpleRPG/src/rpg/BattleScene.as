@@ -22,7 +22,7 @@ package rpg
 	import rpg.battle.view.ActorWindowBox;
 	import rpg.battle.view.BattleStage;
 	import rpg.battle.view.BattleView;
-	import rpg.battle.view.SkillWindow;
+	import rpg.events.GameEvent;
 	import rpg.events.SceneEvent;
 	import rpg.model.Actor;
 	import rpg.model.BattleModel;
@@ -102,15 +102,12 @@ package rpg
 			//			cmdMediator.addEventListener(ActorCommandMediator.START_SELECT_SKILL,showSkillWindow);
 			actDisplayer=new ActionMediator(view,model);
 			
-			model.addEventListener(BattleModel.SELECT_ENEMY,selectEnemy);
-			model.addEventListener(BattleModel.SELECT_ACTOR,selectActor);
-			
 			model.addEventListener(BattleModel.TURN_STAR,startMainHandler);
 			model.addEventListener(BattleModel.TURN_STAR,process_event);
 			model.addEventListener(BattleModel.END_ACTION,process_battle_event);
 			model.addEventListener(BattleModel.TURN_END,process_event);
 			model.addEventListener(BattleModel.WIN,win);
-			model.addEventListener(BattleModel.GAME_OVER,gameOver);
+			model.addEventListener(BattleModel.BATTLE_END,battleEnd);
 			
 			//			view.resultbox.addEventListener(Event.CLOSE,closeResult);
 			//			view.partyCmdWnd.addEventListener(MouseEvent.CLICK,doPartyHandler);
@@ -142,6 +139,7 @@ package rpg
 				scripts=DataBase.getTroopEvents(model.cpuTroop.troopId);
 				battleStage.createFriends(model.party);
 				battleStage.createEnemies(model.cpuTroop);
+				view.monsterBar.monster=model.cpuTroop.members[0]
 				//				view.actorWindows2.setActors(model.cpuTroop.members);
 				//				view.partyCmdWnd.visible=true;
 				//				view.zoneCmdWnd.visible=false;
@@ -334,6 +332,9 @@ package rpg
 		 * 
 		 */
 		private function next_command(evt:Event=null):void{
+			if (model.phase==6){
+				return;
+			}
 //			if (model.phase==4){
 //				model.process_battle()
 //			}else	if (model.isTurnEnd){
@@ -363,10 +364,9 @@ package rpg
 				
 				view.showCommandWindow();
 				var skills:Array=model.activeBattler.skills.concat();
-				var arr:Array=[]
 				var atk:Skill=DataBase.getInstance().getSkill(1);
 				var g:Skill=DataBase.getInstance().getSkill(2);
-				skills=skills.concat(atk,g);
+				skills=[atk,g].concat(skills);
 				view.cmdWindow.showCmdBtns(skills);
 			//	model.activeBattler.action.setAttack()
 			}else{
@@ -395,32 +395,36 @@ package rpg
 		private function win(evt:Event):void{
 //			view.msgWindow.visible=true;
 //			view.msgWindow.clear();
-//			view.msgWindow.showMsg("打倒了敌人，玩家胜利！\nclick...")
+			view.showMsg("打倒了敌人，玩家胜利！");
 //			showWinResult();
-			
+			closeResult();
 		}
 		
-		private function gameOver(evt:Event):void{
+		//0：胜利，1：逃跑，2：失败）
+		private function battleEnd(evt:GameEvent):void{
+			var result:int=evt.data as int;
+			if (result==0){
+				
+			}else if (result==1){
+				
+			}else{
+				
+			}
 //			view.msgWindow.visible=true;
 //			view.msgWindow.clear();
 //			view.msgWindow.showMsg("团队全灭，游戏结束！")
-//			
+			var resultEvent:BattleEvent=new BattleEvent(BattleEvent.FINISH);
+			resultEvent.kind=result;
+			resultEvent.troop=model.cpuTroop;
+			closeResult();
+			model.reset();
+			view.finish();
+			TweenLite.delayedCall(2,finish);
+			function finish():void{
+				
+				dispatch(resultEvent);
+			}
 		}
-		
-		
-		private function selectEnemy(evt:Event):void{
-		//	view.battleStage.canSelectEnemys(true);
-			
-		}
-		
-		private function selectActor(evt:Event):void{
-		//	view.actorWindows.canSelect(true);
-			
-		}
-		
-		
-		
-		
 		
 		
 		
@@ -450,7 +454,7 @@ package rpg
 		 * @param event
 		 * 
 		 */
-		protected function closeResult(event:Event):void
+		protected function closeResult(event:Event=null):void
 		{
 			view.hideResultBox();
 //			var items:Array=view.resultbox.arrList.source;
@@ -465,12 +469,11 @@ package rpg
 //					}
 //				}
 //			)
-//			model.party.gold+=gold;
+		//	model.party.gold+=gold;
 //			
 //			
-//			model.reset();
-//			view.reset();
-//			dispatch(new BattleEvent(BattleEvent.FINISH));
+			
+		
 			//model.party.gain_item();
 		}
 		

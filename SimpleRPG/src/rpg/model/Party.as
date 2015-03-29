@@ -17,12 +17,14 @@ package rpg.model
 		private var _food:int;
 		public var maxFood:int=10;
 		public var bag:ItemBag;
+		public var inBattle:Boolean;
 		
 		public function Party()
 		{
 			super();
 			bag=new ItemBag();
 			actors = [];
+			inBattle=true;
 		}
 
 		
@@ -152,7 +154,18 @@ package rpg.model
 			gain_item(item, -n, include_equip)
 		}
 			
-		
+		/**
+		 * 消耗物品
+  #    减少 1 个持有数。 
+		 * @param item
+		 * 
+		 */
+		public function consume_item(item:Item):void
+		{
+			if (item is Item && item.consumable){
+				lose_item(item, 1)
+			}
+		}
 		
 		public function clear():void{
 			this.clear_actions();
@@ -174,5 +187,7 @@ package rpg.model
 			}
 			
 		}
+		
+	
 	}
 }

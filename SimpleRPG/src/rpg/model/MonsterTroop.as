@@ -28,6 +28,23 @@ package rpg.model
 			return enemies;
 		}
 		
+		public function setMonster(id:int):void{
+			clear();
+			this.troopId = 1
+			enemies = []
+				
+				
+				var  enemy:Monster =db.getMonster(1,id);
+			
+				if (enemy){
+					enemies.push(enemy)
+					
+				}else{
+					trace("警告:缺少怪物配置"+id)
+				}
+				
+			
+		}
 		
 		public function setup(troopId:int):void{
 			clear();

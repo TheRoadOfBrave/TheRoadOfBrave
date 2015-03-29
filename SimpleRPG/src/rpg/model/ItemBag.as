@@ -137,7 +137,8 @@ package rpg.model
 			new_number=Math.max(new_number,0);
 			new_number= Math.min(new_number, max_item_number);
 			
-			if (new_number==0){
+			//0也包含在内
+			if (false && new_number==0){
 				delete container[item.key] ;
 			}else{
 				var obj:IPackItem=container[item.key] 

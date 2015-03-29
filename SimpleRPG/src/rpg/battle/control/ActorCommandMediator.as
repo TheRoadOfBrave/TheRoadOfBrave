@@ -84,21 +84,30 @@ package rpg.battle.control
 		private function selectActHandler(evt:GameEvent):void{
 				var activeBattler:Battler=model.activeBattler;
 				var actId:int=evt.data as int;
-				
-				activeBattler.action.clear();
-				if (actId==activeBattler.attack_skill_id){
-					activeBattler.action.setAttack()
-					model.setActionTarget(1);
-				}else if(actId==activeBattler.guard_skill_id){
-					model.setGuard();
-				}else  {
-					var skill:Skill=DataBase.getInstance().getSkill(actId);
-					
-					if (skill!=null){
+				if (actId==4){
+					var sucess:Boolean=model.process_escape();
+					if (sucess){
 						
-						
-						activeBattler.action.setSkill(skill.id);
+					}else{
+						model.turn_start();
+					}
+				}else{
+					activeBattler.action.clear();
+					if (actId==activeBattler.attack_skill_id){
+						activeBattler.action.setAttack()
 						model.setActionTarget(1);
+					}else if(actId==activeBattler.guard_skill_id){
+						model.setGuard();
+					}else  {
+						var skill:Skill=DataBase.getInstance().getSkill(actId);
+						
+						if (skill!=null){
+							
+							
+							activeBattler.action.setSkill(skill.id);
+							model.setActionTarget(1);
+							
+						}
 						
 					}
 					

@@ -2,17 +2,17 @@ package rpg.events
 {
 	import flash.events.Event;
 	
-	import rpg.pub.Pub;
 	import rpg.vo.IPackItem;
 	
 	public class ItemEvent extends Event
 	{
 		public static const BUY:String="buy_item";
 		public static const SELL:String="sell_item";
+		public static const CANCEL:String="canecl_item";
 		public static const CLICK:String="click_item";
 		public static const USE:String="use_item";
 		
-		
+		public var data:Object;
 		public var item:IPackItem;
 		/**
 		 *代表多个物品 或物品使用对象 

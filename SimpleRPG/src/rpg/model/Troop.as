@@ -196,8 +196,10 @@ package rpg.model
 		 * 
 		 */
 		public function on_battle_start():void{
-//			members.each {|member| member.on_battle_start }
-//			@in_battle = true
+			for each(var member:Battler in members){
+				member.on_battle_start();
+			}
+			//	in_battle = true
 		}
 		/**
 		 *战斗结束处理 

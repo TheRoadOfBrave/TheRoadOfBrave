@@ -119,7 +119,7 @@ package rpg.battle.control
 		}
 		
 		protected function playSound(name:String):void{
-			GameSound.getInstance().playSound(name);
+			GameSound.getInstance().play(name);
 		}
 	}
 }

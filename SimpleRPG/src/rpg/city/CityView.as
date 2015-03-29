@@ -2,10 +2,16 @@ package rpg.city
 {
 	import org.flexlite.domUI.components.Button;
 	import org.flexlite.domUI.components.Group;
+	import org.flexlite.domUI.components.UIAsset;
+	import org.flexlite.domUI.core.UIComponent;
+	
+	import rpg.Cache;
 	
 	public class CityView extends Group
 	{
 		public var goBtn:Button;
+		public var shopBtn:Button;
+		private var uibox:UIComponent;
 		public function CityView()
 		{
 			super();
@@ -17,7 +23,9 @@ package rpg.city
 		{
 			width=480;
 			height=300;
-			
+			var asset:UIAsset=new UIAsset;
+			asset.skinName=Cache.getBackground(0);
+			addElement(asset);
 		}
 		
 		override protected function createChildren():void
@@ -26,7 +34,14 @@ package rpg.city
 			goBtn=new Button;
 			goBtn.label="出发"
 			goBtn.id="goBtn"
+			goBtn.x=220;
+			goBtn.y=100;
 			addElement(goBtn);
+			
+			shopBtn=new Button;
+			shopBtn.label="商店"
+			shopBtn.id="shopBtn"
+			addElement(shopBtn);
 		}
 		
 	}

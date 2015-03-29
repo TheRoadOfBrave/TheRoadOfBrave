@@ -33,7 +33,7 @@ package rpg.model
 		public static const STATE_CHANGE:String="state_change";
 		
 		public static const WIN:String="win";
-		public static const GAME_OVER:String="game_over";
+		public static const BATTLE_END:String="battle_end";
 		
 		
 		public static const END_ACTION:String="end_action";
@@ -41,7 +41,7 @@ package rpg.model
 		public static const TURN_END:String="turn_end";
 		/**
 		 * 
-			1战斗准备  2指令输入 3回合开始 4战斗回合中 5回合结束
+			1战斗准备  2指令输入 3回合开始 4战斗回合中 5回合结束 6整个战斗结束
 		 */
 		public var phase:int;
 		public var actionBattlers:Array;
@@ -65,6 +65,14 @@ package rpg.model
 		private var preemptive:Boolean;
 		private var surprise:Boolean;
 		private var _action_forced:Battler;
+		/**
+		 *逃跑率 
+		 */
+		private var escape_ratio:Number=0;
+		
+		
+		
+		
 		private static var _instance:BattleModel;
 		public function BattleModel(){
 			
@@ -97,21 +105,15 @@ package rpg.model
 		
 		private function init():void{
 			actionBattlers=[];
-			battleFormula=new BattleFormula();
+			battleFormula=BattleFormula.getInstance();
 			
 			
 		}
 		
 		private function sendEvent(eventName:String,obj:Object=null):void{
-			var event:Event;
-			if (obj){
-				var dyEvent:GameEvent=new GameEvent(eventName);
+			var event:GameEvent=new GameEvent(eventName);;
 				
-				dyEvent.data=obj;
-				event=dyEvent;
-			}else{
-				event=new Event(eventName);
-			}
+				event.data=obj;
 			
 			dispatchEvent(event);
 		}
@@ -145,13 +147,15 @@ package rpg.model
 		//准备战斗
 		public function battle_start():void{
 			in_battle=true;
+			party.on_battle_start();
+			cpuTroop.on_battle_start();
 			trace("战斗准备，先选择队伍命令")
 			start_party_command_selection();
 		}
 		
 		
 		private function call_gameover():void{
-			sendEvent(GAME_OVER);
+		//	sendEvent(GAME_OVER);
 			trace("游戏结束")
 		}
 		
@@ -200,14 +204,20 @@ package rpg.model
 		}
     	
 		
+		/**
+		 *逃跑 撤退 
+		 * @return 
+		 * 
+		 */
 		public function process_escape():Boolean{
 			//$game_message.add(sprintf(Vocab::EscapeStart, $game_party.name))
-			var success:Boolean = preemptive ? true : (Math.random() < 100)
+			escape_ratio=2
+			var success:Boolean = preemptive ? true : (Math.random() < escape_ratio)
 			if (success){
 				//process_abort
 				battle_end(1);
 			}else{
-				//@escape_ratio += 0.1
+				escape_ratio += 0.1
 //				$game_message.add('\.' + Vocab::EscapeFailure)
 //				$game_party.clear_actions
 			}
@@ -232,7 +242,6 @@ package rpg.model
 //			display_exp_and_gold
 //			display_drop_items
 			deal_level_up();
-			trace("胜利！！！！！！！！！！！！！！")
    			battle_end(0)
 			sendEvent(WIN);
    		}
@@ -247,31 +256,25 @@ package rpg.model
 		}
     	//   result : 结果（0：胜利，1：逃跑，2：失败）
 		private function battle_end(result:int):void{
-			
-			
+			party.on_battle_end();
+			cpuTroop.on_battle_end();
+			phase=6;
 		  	if (result == 2 && ! cpuTroop.canLose){
-				trace("团队全灭！！！！！！！！！！！！！！！！！！！！！！")
+				trace("团队全灭！！！！！！")
 		  		 call_gameover();
 		  	}else{
 				trace("逃跑 胜利???！！！！！！！！！！！！！！！")
 		  		party.clear_actions();
 		    //  party.remove_states_battle
 		   //  cpuTroop.clear();
-				
-//		      if $game_temp.battle_proc != nil
-//		        $game_temp.battle_proc.call(result)
-//		        $game_temp.battle_proc = nil
-//		      end
-				
-//		      unless $BTEST
-//		        $game_temp.map_bgm.play
-//		        $game_temp.map_bgs.play
-//		      end
 		  
 		  	}
-		     
+		
+		//	@event_proc.call(result) if @event_proc
+		
 		  
-		    in_battle = false
+		    in_battle = false;
+			sendEvent(BATTLE_END,result);
 		}
     
 		
@@ -451,7 +454,6 @@ package rpg.model
 		
 		
 		private var last_subject:Battler;
-	
 		
 		/**
 		 *  ● 处理强制战斗行动
@@ -478,6 +480,7 @@ package rpg.model
 			if (judge_win_loss()){
 				return;
 			}
+			
 			if (activeBattler==null || activeBattler.action==null)
 				activeBattler=next_active_battler();
 			
@@ -489,6 +492,9 @@ package rpg.model
 			if (activeBattler.action && activeBattler.action.isValid){
 				trace(activeBattler.action.item.name)
 			    	execute_action();
+		   }else{
+			   process_action_end();
+			   endAction()
 		   }
 			
 			
@@ -512,7 +518,7 @@ package rpg.model
 		 * 行动播放完后调用
 		 * 
 		 */		
-		public function endAction(delay:int=0):void{
+		public function endAction():void{
 			if (ArrayUtil.arrayContainsValue(actionBattlers,activeBattler)){
 				activeBattler.makeAction();
 			}

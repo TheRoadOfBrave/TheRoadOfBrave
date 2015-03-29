@@ -2,6 +2,11 @@ package rpg.command
 {
 	
 	
+	import flash.display.Loader;
+	import flash.net.URLLoader;
+	import flash.system.ApplicationDomain;
+	import flash.system.LoaderContext;
+	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	
 	import mk.util.TxtUtil;
@@ -14,26 +19,32 @@ package rpg.command
 	public class InitDataCommand extends Command
 	{
 		
-		[Embed("/data/equip.txt",mimeType="application/octet-stream")]
+		[Embed("/../data/equip.txt",mimeType="application/octet-stream")]
 		private var equipData:Class;
 		
-		[Embed("/data/item.txt",mimeType="application/octet-stream")]
+		[Embed("/../data/item.txt",mimeType="application/octet-stream")]
 		private var itemData:Class;
 		
-		[Embed("/data/monsters.xml",mimeType="application/octet-stream")]
+		[Embed("/../data/monsters.xml",mimeType="application/octet-stream")]
 		private var monsterData:Class;
 		
-		[Embed("/data/actors.xml",mimeType="application/octet-stream")]
+		[Embed("/../data/actors.xml",mimeType="application/octet-stream")]
 		private var actorData:Class;
 		
-		[Embed("/data/troops.xml",mimeType="application/octet-stream")]
+		[Embed("/../data/troops.xml",mimeType="application/octet-stream")]
 		private var troopData:Class;
 		
-		[Embed("/data/states.xml",mimeType="application/octet-stream")]
+		[Embed("/../data/states.xml",mimeType="application/octet-stream")]
 		private var stateData:Class;
 		
-		[Embed("/data/skills.xml",mimeType="application/octet-stream")]
+		[Embed("/../data/skills.xml",mimeType="application/octet-stream")]
 		private var skillData:Class;
+		
+		[Embed("/../data/acts.xml",mimeType="application/octet-stream")]
+		private var actData:Class;
+		
+		[Embed("/../data/sound.swf",mimeType="application/octet-stream")]
+		private var sounds:Class;
 		
 		public function InitDataCommand()
 		{
@@ -47,6 +58,7 @@ package rpg.command
 			DataBase.troops=XML(new troopData);
 			DataBase.states=XML(new stateData);
 			DataBase.skills=XML(new skillData);
+			DataBase.acts=XML(new actData);
 			
 			DataBase.dicts["item"]=new itemData;
 			DataBase.dicts["equip"]=new equipData;
@@ -59,6 +71,10 @@ package rpg.command
 			DataBase.dicts["equip"]=parse(data);
 			
 			Cache.ant_xml=DataBase.dicts["ants"];
+			
+			var loader:Loader=new Loader();
+			var swf:ByteArray=new sounds
+			loader.loadBytes(swf,new LoaderContext(false,ApplicationDomain.currentDomain));
 		}
 		
 		private function parse(data:String):Dictionary{

@@ -846,6 +846,7 @@ package rpg.model
 			 * 
 			 */
 			public function on_battle_start():void{
+				//TP恢复
 				//init_tp unless preserve_tp?
 			}
 		/**
@@ -910,7 +911,7 @@ package rpg.model
 			}
 				
 		
-		
+			
 			
 	}
 }

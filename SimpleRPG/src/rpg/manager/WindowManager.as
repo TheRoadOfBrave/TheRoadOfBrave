@@ -6,6 +6,7 @@ package rpg.manager
 	import org.flexlite.domUI.core.UIComponent;
 	
 	import rpg.WindowConst;
+	import rpg.shop.view.ShopView;
 	
 
 	public class WindowManager 
@@ -43,7 +44,7 @@ package rpg.manager
 					
 					break;
 				case WindowConst.SHOP:
-					//window=new ShopView;
+					window=new ShopView;
 					break;
 				case WindowConst.PUB:
 					//window=new Pub;

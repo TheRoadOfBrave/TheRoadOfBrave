@@ -4,6 +4,8 @@ package rpg.battle.event
 	
 	import rpg.model.BattleAction;
 	import rpg.model.Battler;
+	import rpg.model.MonsterTroop;
+	import rpg.model.Troop;
 	
 	public class BattleEvent extends Event
 	{
@@ -20,6 +22,10 @@ package rpg.battle.event
 		public var battler:Battler;
 		public var targets:Array;
 		public var action:BattleAction;
+		/**
+		 *打倒的队伍 ，用来获取战斗后的奖励 
+		 */
+		public var troop:MonsterTroop;
 		public var kind:int;
 		public function BattleEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{

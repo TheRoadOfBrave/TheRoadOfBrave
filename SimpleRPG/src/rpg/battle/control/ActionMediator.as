@@ -75,8 +75,7 @@ package rpg.battle.control
 		
 		private function actEnd():void{
 			
-//			view.actorWindows.update();
-//			view.actorWindows2.update();
+			view.update();
 //			if (!activeBattler.action.forcing){
 //				if (model.remove_states_auto()){
 //					//display_state_changes(activeBattler);
@@ -102,10 +101,6 @@ package rpg.battle.control
 				displayer=null;
 				model.endAction();
 			}
-			
-			
-			
-			
 			
 		}
 		

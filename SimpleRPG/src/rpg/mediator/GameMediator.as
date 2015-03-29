@@ -10,6 +10,7 @@ package rpg.mediator
 	import rpg.DataBase;
 	import rpg.WindowConst;
 	import rpg.events.DialogEvent;
+	import rpg.events.GameEvent;
 	import rpg.events.ItemEvent;
 	import rpg.events.MapEvent;
 	import rpg.events.SceneEvent;
@@ -54,13 +55,15 @@ package rpg.mediator
 			view.addEventListener(Event.ENTER_FRAME,updateHandler);
 			
 			view.battleView=battleScene.view;
-			
+			battleScene.view.actorWnd=view.statusPanel;
 			//游戏MASTER设置
 			view.setup();
 			//转到第一个场景
 			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
 			
 		}
+		
+	
 		
 		protected function updateHandler(event:Event):void
 		{
@@ -144,11 +147,10 @@ package rpg.mediator
 					break;
 				case WindowConst.SCENE_ZONE:
 					//view.battleGroup.addElement(battleScene.view);
-					var party:Party=Party.getInstance()
+					//var party:Party=Party.getInstance()
 					battleScene.dispose();
-					battleScene.setupParty(party);
 					
-					battleScene.setup();
+					//battleScene.setup();
 					
 					break;
 				default:
@@ -156,6 +158,8 @@ package rpg.mediator
 			}
 			
 		}
+		
+	
 		
 		private function useItemHandler(event:ItemEvent):void
 		{

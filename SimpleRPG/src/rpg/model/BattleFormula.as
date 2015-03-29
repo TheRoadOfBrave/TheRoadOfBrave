@@ -1,10 +1,10 @@
 package rpg.model
 {
-	import avmplus.USE_ITRAITS;
-	
 	import com.adobe.utils.ArrayUtil;
 	
 	import mx.logging.LogLogger;
+	
+	import avmplus.USE_ITRAITS;
 	
 	import rpg.vo.BaseItem;
 	import rpg.vo.Damage;
@@ -15,8 +15,18 @@ package rpg.model
 
 	public class BattleFormula
 	{
+		private static var _instance:BattleFormula;
 		public function BattleFormula()
 		{
+		}
+		
+		public static function getInstance():BattleFormula{
+			if (!_instance) {
+				
+				_instance=new BattleFormula();
+				
+			}
+			return _instance;
 		}
 		
 		/**
@@ -244,7 +254,7 @@ package rpg.model
 		}
 	public function item_apply(user: Battler,target : Battler, item:UsableItem):void{
 		target.clear_action_results();
-		target.result.used = item_test(user, item)
+		target.result.used = item_test(user, target,item)
 		if (Math.random() >= calc_hit(user,item) ){
 			// 计算命中率
 			target.result.missed = true;
@@ -274,11 +284,100 @@ package rpg.model
 		
 	}
 	
-	private function item_test(user:Battler, item:UsableItem):Boolean
+	/**
+	 * ● 技能／物品的应用测试
+  #    如果使用目标的 HP 或者 MP 全满时，禁止使用恢复道具。 
+	 * @param user
+	 * @param target
+	 * @param item
+	 * @return 
+	 * 
+	 */
+	public function item_test(user:Battler, target:Battler, item:UsableItem):Boolean
 	{
-		// TODO Auto Generated method stub
-		return true;
+		if (item.isForDeadFriend != target.isDead){
+			return false;
+		}
+		
+		if (item is Skill){
+			return true;
+		}
+		//	return true if $game_party.in_battle
+		//return true if item.for_opponent?
+		if (item.damage.isRecover && item.damage.to_hp && target.hp<target.mhp){
+			return true;
+		}
+		
+		if (item.damage.isRecover && item.damage.to_mp && target.mp<target.mmp){
+			return true;
+		}
+		if (item_has_any_valid_effects(user,target,item)){
+			return true;
+		}
+		return false;
 	}		
+	
+	private function item_has_any_valid_effects(user:Battler,target:Battler, item:UsableItem):Boolean
+	{
+		function valid(element:Effect, index:int, arr:Array):Boolean {
+			return item_effect_test(user,target,item,element);
+		}
+		return item.effects.some(valid);
+			
+	}	
+	
+	/**
+	 * 
+	# ● 测试使用效果
+	 * @param user
+	 * @param target
+	 * @param item
+	 * @param effect
+	 * @return 
+	 * 
+	 */
+	public function  item_effect_test(user:Battler,target:Battler, item:BaseItem, effect:Effect):Boolean{
+		switch(effect.code)
+		{
+			case Effector.EFFECT_RECOVER_HP:
+				return (target.hp<target.mhp  || effect.value1 < 0 || effect.value2 < 0);
+				break;
+			case Effector.EFFECT_RECOVER_MP:
+				return (target.mp<target.mmp  || effect.value1 < 0 || effect.value2 < 0);
+				break;
+			case Effector.EFFECT_ADD_STATE:
+				//无此状态 返回true
+				return !target.hasState(effect.data_id);
+				break;
+			case Effector.EFFECT_REMOVE_STATE:
+				//有该状态返回true
+				return target.hasState(effect.data_id);
+				break;
+			case Effector.EFFECT_ADD_BUFF:
+				return !target.isBuffMax(effect.data_id)
+				break;
+			case Effector.EFFECT_ADD_DEBUFF:
+				return !target.isDebuffMax(effect.data_id)
+				break;
+			case Effector.EFFECT_REMOVE_BUFF:
+				return target.hasBuff(effect.data_id);
+				break;
+			case Effector.EFFECT_REMOVE_DEBUFF:
+				return target.hasDebuff(effect.data_id);
+				break;
+			case Effector.EFFECT_LEARN_SKILL:
+				//actor? && !skills.include?($data_skills[effect.data_id])
+				return true;
+				break;
+			default:
+				return true;
+				break;
+		}
+		
+		return false;
+	}
+	
+	
    
    		
 		

@@ -8,6 +8,7 @@ package rpg.city
 	
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
+	import rpg.Code;
 	import rpg.WindowConst;
 	import rpg.battle.event.BattleEvent;
 	import rpg.battle.event.ScriptCmdEvent;
@@ -38,13 +39,16 @@ package rpg.city
 			eventMap.mapListener( eventDispatcher, SceneEvent.GOTO, enterSceneHandler );
 
 			eventMap.mapListener( eventDispatcher, SceneEvent.ACTION, actionHandler );
-			eventMap.mapListener( eventDispatcher, BattleEvent.FINISH, battleFinishHandler );
+//			eventMap.mapListener( eventDispatcher, BattleEvent.FINISH, battleFinishHandler );
 //			eventMap.mapListener( eventDispatcher, SceneEvent.GO_FORWARD, goForwardHandler );
 //			eventMap.mapListener( eventDispatcher, SceneEvent.BACK_HOME, backHomeHandler );
 //			
 			
 			view.addEventListener(MouseEvent.CLICK,click);
 			party=Party.getInstance();
+			
+			//城市视图加入后 ，游戏初始化完成 ，跳转到 第一个场景
+			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
 			
 		}
 		
@@ -163,14 +167,24 @@ package rpg.city
 					/*	model.needRefresh=true;
 					model.eventObjs[3].start();
 						model.update();*/
-						var cmdEvent:ScriptCmdEvent=new ScriptCmdEvent(ScriptCmdEvent.EXE_BATTLE_COMMAND);
-						cmdEvent.code=301
-						cmdEvent.params=[0,1]
-						dispatch(cmdEvent);
-						break;
-					case "shop":
 						
-						dispatch(new WindowEvent(WindowEvent.OPEN,WindowConst.SHOP));
+						
+						dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_ZONE));
+						break;
+					case "shopBtn":
+						var goods:Array=[];
+						var cmd:ScriptCmdEvent=new ScriptCmdEvent(ScriptCmdEvent.EXE_COMMAND);
+						cmd.code=Code.COMMAND_SHOP;
+						cmd.params[0]={type:1,id:1,n:1,price:100}
+						cmd.params[1]={type:1,id:3,n:1,price:102}
+						cmd.params[2]={type:1,id:2,n:1,price:103}
+						cmd.params[3]={type:2,id:2,n:1,price:103}
+						cmd.params[4]={type:2,id:1,n:1,price:103}
+						cmd.params[5]={type:2,id:502,n:1,price:103}
+						cmd.yield=true;
+						
+						dispatch(cmd);
+					//	dispatch(new WindowEvent(WindowEvent.OPEN,WindowConst.SHOP));
 						break;
 					
 					

@@ -1,6 +1,7 @@
 package rpg.battle.view
 {
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	
 	import org.flexlite.domUI.components.Group;
 	import org.flexlite.domUI.components.Label;
@@ -16,7 +17,7 @@ package rpg.battle.view
 		
 		private function init():void{
 			graphics.beginFill(0x111111,0.6);
-			graphics.drawRect(0,0,480,20);
+			graphics.drawRect(0,0,480,80);
 			graphics.endFill();
 			
 			label=new Label;
@@ -27,7 +28,17 @@ package rpg.battle.view
 		}
 		
 		public function showMsg(str:String):void{
-			label.text=str;
+			label.text+=str+"\n";
+			if (label.maxScrollV>4){
+				label.text=str+"\n";
+			}
+			
+		}
+		
+		public function clear():void
+		{
+			label.text="";
+			
 		}
 	}
 }

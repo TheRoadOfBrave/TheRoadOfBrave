@@ -1,6 +1,10 @@
 .ssh
 /SimpleRPG/.settings
+/SimpleRPG/swf
+/SimpleRPG/asset
+/SimpleRPG/libs
 /SimpleRPG/bin-debug
+/SimpleRPG/bin-release
 /SimpleRPG/html-template
 /SimpleRPG/.actionScriptProperties
 /SimpleRPG/.project

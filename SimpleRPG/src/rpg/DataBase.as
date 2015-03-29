@@ -4,13 +4,14 @@ package rpg
 	
 	import flash.utils.Dictionary;
 	
+	import mk.util.TxtUtil;
+	
 	import rpg.battleScript.Script20;
 	import rpg.model.Actor;
 	import rpg.model.BattlerBase;
 	import rpg.model.EventPage;
 	import rpg.model.GameEventObject;
 	import rpg.model.Monster;
-	import rpg.script.*;
 	import rpg.vo.ActorVo;
 	import rpg.vo.Effect;
 	import rpg.vo.EquipItem;
@@ -23,7 +24,6 @@ package rpg
 	import rpg.vo.RpgState;
 	import rpg.vo.Skill;
 	import rpg.vo.Talent;
-	import rpg.vo.TalentPt;
 
 	public  class DataBase
 	{
@@ -134,6 +134,8 @@ package rpg
 			return vo;
 		}
 		
+	
+		
 		public  function getItem(id:int):Item{
 			var dict:Dictionary=dicts["item"]
 			var obj:Object=dict[id];
@@ -145,6 +147,13 @@ package rpg
 			vo.animation_id=obj.amimation;
 			vo.icon_index=obj.icon;
 			vo.num=1
+			if (obj.damage){
+				var dArr:Array=obj.damage.split(";");
+				vo.damage.type=int(dArr[0]);
+				vo.damage.element_id=int(dArr[1]);
+				vo.damage.variance = int(dArr[2]);
+				vo.damage.critical=Boolean(dArr[3]);
+			}
 			if (obj.effects){
 				var effects:Array=obj.effects.split(";");
 				for (var i:int=0;i<effects.length;i++){
@@ -236,9 +245,6 @@ package rpg
 		
 		
 		
-		public  function getActData(id:int):XML{
-			return acts.act[id-1]
-		}
 		
 		public  function getEffectData(id:int):XML{
 			return effects.effect[id-1]
@@ -262,6 +268,12 @@ package rpg
 			equip.atype_id=obj.atype;
 			
 			equip.params= [1000,0,10,0,0,0,0,0];
+			if (obj.params){
+			
+				equip.params=TxtUtil.parseStrInt(obj.params);
+			}
+			
+			
 			EQUIP_UID++;
 			equip.flowId=EQUIP_UID;
 			return equip;
@@ -293,7 +305,20 @@ package rpg
 			return list;
 		}
 		
-		
+		public  function getActData(id:String):XML{
+			try
+			{
+				var xml:XML=XML(acts.children().(@id==id));
+				return xml;
+			} 
+			catch(error:Error) 
+			{
+				trace("没有动画XML数据")
+				return null;
+			}
+			
+			
+		}
 		
 		public static function getMapXML(id:int):XML
 		{

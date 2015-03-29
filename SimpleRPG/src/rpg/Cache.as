@@ -10,17 +10,47 @@ package rpg
 	import flash.utils.getDefinitionByName;
 	
 	import mk.LibUtil;
+	import mk.rpg.asset.skill.Fire1;
+	import mk.rpg.asset.skill.Fire2;
+	import mk.rpg.asset.skill.Ice1;
+	import mk.rpg.asset.skill.Ice2;
+	import mk.rpg.asset.skill.Ice3;
+	import mk.rpg.asset.skill.Sword1;
+	import mk.rpg.asset.skill.Sword2;
+	import mk.rpg.asset.skill.Sword3;
+	import mk.rpg.asset.skill.Sword4;
+	import mk.rpg.asset.skill.Thunder1;
+	import mk.rpg.asset.skill.Thunder2;
+	import mk.rpg.asset.skill.Wind1;
 	
+	import rpg.asset.Background0;
+	import rpg.asset.Background1;
+	import rpg.asset.Background10;
+	import rpg.asset.Background11;
+	import rpg.asset.Background12;
+	import rpg.asset.Background2;
+	import rpg.asset.Background3;
+	import rpg.asset.Background4;
+	import rpg.asset.Background5;
+	import rpg.asset.Background6;
+	import rpg.asset.Background7;
+	import rpg.asset.Background8;
+	import rpg.asset.Background9;
 	import rpg.asset.Monster1;
 	import rpg.asset.Monster2;
 	import rpg.asset.Monster3;
 	
 
-	//管理图形数据
+	/**
+	 * 
+	 * 管理图片资源数据
+	 * 
+	 */
 	public class Cache
 	{
-		private var dummySkillClass:Array= []; 
+		private var dummySkillClass:Array= [Fire1,Fire2,Ice1,Ice2,Ice3,Thunder1,Thunder2,Wind1,Sword1,Sword2,Sword3,Sword4]; 
 		private var dummyMonsterClass:Array= [Monster1,Monster2,Monster3]; 
+		private var dummyBgClass:Array=[ Background0,Background1,Background2,Background3,Background4,Background5,Background6,Background7,Background8,Background9,Background10,Background11,Background12]; 
 		public static var ant_xml:XML;
 		
 		

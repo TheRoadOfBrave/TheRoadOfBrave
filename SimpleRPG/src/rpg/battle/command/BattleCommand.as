@@ -80,6 +80,7 @@ package rpg.battle.command
 			
 			if (troop_id>0){
 	//			BattleManager.setup(troop_id, @params[2], @params[3])
+				//战斗 胜利 撤退 回调
 //				BattleManager.event_proc = Proc.new {|n| @branch[@indent] = n }
 		//		$game_player.make_encounter_count
 				setup(troop_id)
@@ -88,11 +89,11 @@ package rpg.battle.command
 			}
 		}
 		
-		public function setup(troopId:uint):void{
+		public function setup(id:uint):void{
 			var party:Party=Party.getInstance();
 			var cpuTroop:MonsterTroop=new MonsterTroop();
-			
-			cpuTroop.setup(troopId);
+			cpuTroop.setMonster(id);
+		//	cpuTroop.setup(troopId);
 			
 			
 			battleScene.setupParty(party);

@@ -1,7 +1,5 @@
 package
 {
-	import rpg.events.AppEvent;
-	
 	import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
 	import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
 	import robotlegs.bender.framework.api.IConfig;
@@ -18,10 +16,23 @@ package
 	import rpg.city.CityMediator;
 	import rpg.city.CityView;
 	import rpg.command.InitDataCommand;
-	import rpg.command.StartupCommand;
-	import rpg.mediator.GameMediator;
+	import rpg.command.SceneCommand;
 	import rpg.command.ScriptCommand;
 	import rpg.command.ShopCommand;
+	import rpg.command.StartupCommand;
+	import rpg.command.WindowCommand;
+	import rpg.events.AppEvent;
+	import rpg.events.SceneEvent;
+	import rpg.events.WindowEvent;
+	import rpg.map.ZoneMediator;
+	import rpg.map.ZoneModel;
+	import rpg.map.ZoneView;
+	import rpg.mediator.GameMediator;
+	import rpg.mediator.StatusMediator;
+	import rpg.shop.ShopMediator;
+	import rpg.shop.ShopModel;
+	import rpg.shop.view.ShopView;
+	import rpg.view.StatusPanel;
 	
 	
 	public class AppConfig implements IConfig
@@ -56,12 +67,17 @@ package
 		{
 		//	injector.map(AppModel).toSingleton(AppModel);
 			injector.map(BattleScene).asSingleton();
+			injector.map(ZoneModel).asSingleton();
+			injector.map(ShopModel).asSingleton();
 		}
 		
 		private function mediators():void
 		{
 			mediatorMap.map(Application).toMediator(GameMediator);
 			mediatorMap.map(CityView).toMediator(CityMediator);
+			mediatorMap.map(ZoneView).toMediator(ZoneMediator);
+			mediatorMap.map(ShopView).toMediator(ShopMediator);
+			mediatorMap.map(StatusPanel).toMediator(StatusMediator);
 		}
 		
 		private function commands():void
@@ -74,11 +90,16 @@ package
 			commandMap.map(  BattleEvent.RESUME_BATTLE, BattleEvent).toCommand(ResumeBattleCommand);
 			
 			
+			commandMap.map(  SceneEvent.GOTO, SceneEvent).toCommand(SceneCommand);
+			commandMap.map(  WindowEvent.OPEN, WindowEvent).toCommand(WindowCommand);
+			commandMap.map(  WindowEvent.CLOSE, WindowEvent).toCommand(WindowCommand);
+			
+			
 			//游戏脚本相关命令
 			commandMap.map( ScriptCmdEvent.EXE_COMMAND, ScriptCmdEvent).toCommand(ScriptCommand);
 			commandMap.map( ScriptCmdEvent.EXE_BATTLE_COMMAND, ScriptCmdEvent).toCommand(BattleCommand);
 			//commandMap.map( ScriptCmdEvent.EXE_BATTLE_COMMAND, ScriptCmdEvent).toCommand(BattleCommand);
-			commandMap.map( ScriptCmdEvent.EXE_SHOP_COMMAND, ScriptCmdEvent).toCommand(BattleCommand);
+			commandMap.map( ScriptCmdEvent.EXE_SHOP_COMMAND, ScriptCmdEvent).toCommand(ShopCommand);
 			
 			
 		}

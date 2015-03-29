@@ -78,15 +78,16 @@ package rpg.battle.control
 			//trace("动作打击点："+hitTime);
 			flag+=5;
 		//	timeline.append(tween);
-		
-			if (skillmc){
-				var lbs:XML=skillmc.data;
-				if (lbs)
+			var aid:String = act.item.animation_id.toString();
+			var lbs:XML=db.getActData(aid);
+			//	var lbs:XML=skillmc.data;
+			if (lbs){
 					addFlag(timeline,flag,lbs.children(),activeBattler,targets);
-				flag+=skillmc.totalFrames+10;
+				flag+=10;
 			//	flag+=20;
 			}
 			timeline.addCallback(playHitEffect,10,[targets]); 
+		//	timeline.play();
 		//	flag+=skillmc.totalFrames;
 			//timeline.addCallback(playActionEffect,flag); 
 			//playHitEffect(targets);

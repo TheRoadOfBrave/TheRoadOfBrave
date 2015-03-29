@@ -54,5 +54,18 @@ package mk.util
 			return datas;
 		}
 		
+		
+		public static function parseStrInt(data:String,s:String=";"):Array{
+			var arr:Array;
+			if (data){
+				arr=data.split(s);
+				for (var i:int=0;i<arr.length;i++){
+					arr[i]=int(arr[i]);
+				}
+			}
+			return arr;
+			
+		}
+		
 	}
 }
