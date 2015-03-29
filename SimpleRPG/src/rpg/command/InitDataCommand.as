@@ -43,7 +43,7 @@ package rpg.command
 		[Embed("/../data/acts.xml",mimeType="application/octet-stream")]
 		private var actData:Class;
 		
-		[Embed("/../data/sound.swf",mimeType="application/octet-stream")]
+		[Embed("/../swf/sound.swf",mimeType="application/octet-stream")]
 		private var sounds:Class;
 		
 		public function InitDataCommand()
