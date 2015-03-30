@@ -13,6 +13,9 @@ package rpg.events
 		 */
 		public static const ARRIVED:String="arrived";
 		
+		public static const VISIT:String="visit";
+		
+		public var objType:int;
 		public var data:Array;
 		public function MapEvent(type:String, data:Array=null,bubbles:Boolean=false, cancelable:Boolean=false)
 		{

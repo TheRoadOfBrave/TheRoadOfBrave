@@ -7,6 +7,9 @@ package rpg.city
 	
 	import rpg.Cache;
 	
+	import skins.BtnSkin;
+	import skins.HardBtnSkin;
+	
 	public class CityView extends Group
 	{
 		public var goBtn:Button;
@@ -34,13 +37,19 @@ package rpg.city
 			goBtn=new Button;
 			goBtn.label="出发"
 			goBtn.id="goBtn"
-			goBtn.x=220;
+			goBtn.x=240;
 			goBtn.y=100;
+			goBtn.skinName=HardBtnSkin;
 			addElement(goBtn);
 			
 			shopBtn=new Button;
 			shopBtn.label="商店"
 			shopBtn.id="shopBtn"
+				shopBtn.x=50;
+				shopBtn.y=150;
+			shopBtn.width=64;
+			shopBtn.height=26;
+			shopBtn.skinName=BtnSkin;
 			addElement(shopBtn);
 		}
 		

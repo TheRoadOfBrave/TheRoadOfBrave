@@ -8,6 +8,8 @@ package rpg.battle.event
 		public static const END_COMMAND:String="end_command";
 		public static const EXE_SHOP_COMMAND:String="exe_shop_command";
 		public static const EXE_BATTLE_COMMAND:String="exe_battle_command";
+		public static const EXE_CHEST:String="exe_chest";
+		public static const EXE_INN:String="exe_inn";
 		private var _code:uint;
 		//命令是否会挂起  即处理完后再调用下调指令 如播放一段动画  选择分支,滚动文字等
 		public var yield:Boolean;

@@ -47,7 +47,6 @@ package rpg
 		
 		override protected function createChildren():void
 		{
-			// TODO Auto Generated method stub
 			super.createChildren();
 			
 		}
@@ -60,10 +59,12 @@ package rpg
 			zoneView=new ZoneView;
 			zoneView.visible=false;
 			dialog=new Dialog;
+			dialog.y=250;
+			dialog.visible=false;
 			addElement(city);
 			addElement(zoneView);
 			addElement(battleGroup);
-			
+			addElement(dialog);
 			addElement(windowBox);
 			
 			var wndManager:WindowManager=WindowManager.getInstance()
@@ -130,6 +131,7 @@ package rpg
 			
 			
 			statusPanel.refreshEquipt();
+			
 		}
 		
 		public function gotoScene(scene:String):void{
@@ -157,13 +159,26 @@ package rpg
 		
 		
 		
-		public function get needDealMap():Boolean{
-//			if (dialog.visible==false && windows.numElements==0 
-//				&& systemManager.numChildren==1
-//				&& (scene==WindowConst.SCENE_CITY || scene==WindowConst.SCENE_MAP)){
-//				//	trace("TOPSSSSS:::"+systemManager.numChildren)
-//				return true;
-//			}
+		/**
+		 *是否需要更新地图事件脚本 ，检测事件场景  窗口 
+		 * @return 
+		 * 
+		 */
+		public function get needDoScript():Boolean{
+			if ( 	 (scene==WindowConst.SCENE_CITY || scene==WindowConst.SCENE_ZONE)){
+				//	trace("TOPSSSSS:::"+systemManager.numChildren)
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 *是否挂起 ,挂起 对应的解释器 不往下执行
+		 * @return 
+		 * 
+		 */
+		public function get isYield():Boolean{
+			if (dialog.visible) return true;
 			return false;
 		}
 		

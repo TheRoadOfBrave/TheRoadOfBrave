@@ -16,10 +16,13 @@ package rpg.map
 	
 	import org.flexlite.domUI.components.Button;
 	import org.flexlite.domUI.components.Group;
+	import org.flexlite.domUI.components.List;
 	import org.flexlite.domUI.components.UIAsset;
 	import org.flexlite.domUI.core.UIComponent;
 	
 	import rpg.Cache;
+	import rpg.map.view.Chest;
+	import rpg.map.view.InnView;
 	
 	public class ZoneView extends Group
 	{
@@ -27,6 +30,7 @@ package rpg.map
 		private var btn:Button;
 		private var _moveable:Boolean;
 		private var backgroundBox:UIComponent;
+		public var inn:InnView;
 		public function ZoneView()
 		{
 			super();
@@ -54,6 +58,11 @@ package rpg.map
 			btn.label="前进"
 			addElement(btn);
 			btn.addEventListener(MouseEvent.CLICK,goHandler);
+			
+			
+			inn=new InnView;
+			inn.x=110;
+			inn.y=108;
 		}
 		
 		public function get moveable():Boolean
@@ -120,12 +129,31 @@ package rpg.map
 		 * @param items
 		 * 
 		 */
+		private var chest:Chest
 		public function showChest(items:Array):void{
+			chest=new Chest;
+			chest.setItems(items);
+			chest.x=240;
+			chest.y=180;
+			chest.addEventListener(Chest.OPEN,openChest);
+			addElement(chest);
+		}
+		
+		protected function openChest(event:Event):void
+		{
+			var list:List=chest.itemList;
+			list.alpha=0;
+			list.x=chest.x;
+			list.y=chest.y;
+			list.scaleX=list.scaleY=0.1;
+			TweenLite.to(list,0.8,{x:200,y:60,alpha:1,scaleX:1,scaleY:1});
+			addElement(list);
 			
 		}
 		
-		public function showInn():void{
-			
+		public function showInn(gold:int):void{
+			inn.gold=gold;
+			addElement(inn);
 		}
 		
 		public function showShop():void{

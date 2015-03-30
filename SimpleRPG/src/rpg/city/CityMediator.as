@@ -174,7 +174,7 @@ package rpg.city
 					case "shopBtn":
 						var goods:Array=[];
 						var cmd:ScriptCmdEvent=new ScriptCmdEvent(ScriptCmdEvent.EXE_COMMAND);
-						cmd.code=Code.COMMAND_SHOP;
+						cmd.code=Code.CMD_SHOP;
 						cmd.params[0]={type:1,id:1,n:1,price:100}
 						cmd.params[1]={type:1,id:3,n:1,price:102}
 						cmd.params[2]={type:1,id:2,n:1,price:103}

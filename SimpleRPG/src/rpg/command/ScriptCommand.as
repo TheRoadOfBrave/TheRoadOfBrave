@@ -10,6 +10,7 @@ package rpg.command
 	import robotlegs.bender.bundles.mvcs.Command;
 	
 	import rpg.BattleScene;
+	import rpg.Code;
 	import rpg.DataBase;
 	import rpg.WindowConst;
 	import rpg.battle.event.ScriptCmdEvent;
@@ -84,6 +85,12 @@ package rpg.command
 					//dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_ZONE));
 					
 					break;
+				case Code.CMD_INN:
+				case Code.CMD_CHEST:
+					var evt:MapEvent=new MapEvent(MapEvent.VISIT,event.params);
+					evt.objType=event.code;
+					dispatch(evt);
+					break;
 			}
 		}
 		
@@ -121,6 +128,12 @@ package rpg.command
 				case 302:
 					cmdEvent=evt.newTypeEvent(ScriptCmdEvent.EXE_SHOP_COMMAND);
 					break;
+//				case Code.CMD_INN:
+//					cmdEvent=evt.newTypeEvent(ScriptCmdEvent.EXE_INN);
+//					break;
+//				case Code.CMD_CHEST:
+//					cmdEvent=evt.newTypeEvent(ScriptCmdEvent.EXE_CHEST);
+//					break;
 			}
 			
 			

@@ -3,18 +3,22 @@ package rpg.mediator
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import org.flexlite.domUI.components.Alert;
+	
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
 	import rpg.Application;
 	import rpg.BattleScene;
 	import rpg.DataBase;
 	import rpg.WindowConst;
+	import rpg.battle.event.ScriptCmdEvent;
 	import rpg.events.DialogEvent;
 	import rpg.events.GameEvent;
 	import rpg.events.ItemEvent;
 	import rpg.events.MapEvent;
 	import rpg.events.SceneEvent;
 	import rpg.manager.WindowManager;
+	import rpg.map.ZoneModel;
 	import rpg.model.Party;
 	
 	/**
@@ -27,7 +31,9 @@ package rpg.mediator
 		
 		[Inject]
 		public var battleScene:BattleScene;
-	
+		
+		[Inject]
+		public var zoneModel:ZoneModel;	
 		
 		
 		/**
@@ -51,11 +57,17 @@ package rpg.mediator
 			eventMap.mapListener( eventDispatcher, ItemEvent.USE, useItemHandler );
 		//	eventMap.mapListener( eventDispatcher, MapEvent.TRANSFER, transferHandler );
 			
-			view.dialog.addEventListener(MouseEvent.CLICK,showNextDialog);
+			//view.dialog.addEventListener(MouseEvent.CLICK,showNextDialog);
+			
+			zoneModel.interpreter.addEventListener(ScriptCmdEvent.EXE_COMMAND,exeScript);
+			
 			view.addEventListener(Event.ENTER_FRAME,updateHandler);
 			
 			view.battleView=battleScene.view;
 			battleScene.view.actorWnd=view.statusPanel;
+			
+		
+			
 			//游戏MASTER设置
 			view.setup();
 			//转到第一个场景
@@ -63,12 +75,21 @@ package rpg.mediator
 			
 		}
 		
-	
+		/**
+		 *脚本命令发送到 MVC 系统 
+		 * @param event
+		 * 
+		 */
+		protected function exeScript(event:ScriptCmdEvent):void
+		{
+			dispatch(event);
+		}
 		
 		protected function updateHandler(event:Event):void
 		{
-			if (view.needDealMap){
-
+			if (view.needDoScript && view.isYield==false){
+				//trace("处理脚本"+zoneModel.script)
+				zoneModel.update();
 			}
 			
 		}		
@@ -146,6 +167,7 @@ package rpg.mediator
 				case WindowConst.SCENE_MAP:
 					break;
 				case WindowConst.SCENE_ZONE:
+					zoneModel.buildScript();
 					//view.battleGroup.addElement(battleScene.view);
 					//var party:Party=Party.getInstance()
 					battleScene.dispose();
