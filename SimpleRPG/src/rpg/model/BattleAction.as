@@ -22,7 +22,7 @@ package rpg.model {
 		private var db:DataBase
 		//评价值（自动战斗用）
 		private var value:int;
-		public function BattleAction(battler:Battler, forcing:Boolean = false){
+		public function BattleAction(battler:Battler=null, forcing:Boolean = false){
 			this.battler=battler;
 			this.forcing=forcing;
 			db=DataBase.getInstance();

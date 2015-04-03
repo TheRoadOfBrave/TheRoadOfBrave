@@ -15,13 +15,18 @@ package
 	import rpg.battle.event.ScriptCmdEvent;
 	import rpg.city.CityMediator;
 	import rpg.city.CityView;
+	import rpg.command.GameStartCommand;
 	import rpg.command.InitDataCommand;
+	import rpg.command.LoadFileCommand;
+	import rpg.command.SaveFileCommand;
 	import rpg.command.SceneCommand;
 	import rpg.command.ScriptCommand;
 	import rpg.command.ShopCommand;
+	import rpg.command.StartJourneyCmd;
 	import rpg.command.StartupCommand;
 	import rpg.command.WindowCommand;
 	import rpg.events.AppEvent;
+	import rpg.events.GameEvent;
 	import rpg.events.SceneEvent;
 	import rpg.events.WindowEvent;
 	import rpg.map.ZoneMediator;
@@ -32,7 +37,9 @@ package
 	import rpg.shop.ShopMediator;
 	import rpg.shop.ShopModel;
 	import rpg.shop.view.ShopView;
+	import rpg.title.TitleMediator;
 	import rpg.view.StatusPanel;
+	import rpg.view.TitleView;
 	
 	
 	public class AppConfig implements IConfig
@@ -74,6 +81,8 @@ package
 		private function mediators():void
 		{
 			mediatorMap.map(Application).toMediator(GameMediator);
+			
+			mediatorMap.map(TitleView).toMediator(TitleMediator);
 			mediatorMap.map(CityView).toMediator(CityMediator);
 			mediatorMap.map(ZoneView).toMediator(ZoneMediator);
 			mediatorMap.map(ShopView).toMediator(ShopMediator);
@@ -84,6 +93,11 @@ package
 		{
 			commandMap.map(AppEvent.STARTUP, AppEvent).toCommand(StartupCommand).once();
 			commandMap.map(AppEvent.STARTUP_COMPLETE, AppEvent).toCommand(InitDataCommand).once();
+			commandMap.map(AppEvent.SAVE, AppEvent).toCommand(SaveFileCommand);
+			commandMap.map(AppEvent.LOAD, AppEvent).toCommand(LoadFileCommand);
+			
+			commandMap.map(GameEvent.START, GameEvent).toCommand(GameStartCommand);
+			commandMap.map(GameEvent.START_JOURNEY, GameEvent).toCommand(StartJourneyCmd);
 			
 			
 			commandMap.map(  BattleEvent.PROCESS_EVENT, BattleEvent).toCommand(ProcessBattleEventCommand);

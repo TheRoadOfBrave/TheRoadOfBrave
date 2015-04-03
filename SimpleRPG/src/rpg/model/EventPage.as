@@ -4,7 +4,6 @@ package rpg.model
 	import flash.events.IEventDispatcher;
 	
 	import rpg.battle.event.ScriptCmdEvent;
-	import rpg.city.MapModel;
 	
 	/**
 	 *事件页 战斗群有多个事件页  每页一个触发条件 

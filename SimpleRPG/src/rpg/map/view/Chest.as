@@ -10,12 +10,14 @@ package rpg.map.view
 	
 	import rpg.asset.ChestMc;
 	
+	import skins.GPanelSkin;
+	
 	public class Chest extends UIComponent
 	{
 		public var mc:MovieClip
 		public static var OPEN:String="open";
 		public var items:Array;
-		public var itemList:List;
+		public var panel:ChestPanel;
 		public function Chest()
 		{
 			super();
@@ -24,12 +26,13 @@ package rpg.map.view
 			mc.stop();
 			addChild(mc);
 			this.addEventListener(MouseEvent.CLICK,open);
-			itemList=new List;
+			panel=new ChestPanel;
+			
 		}
 		
 		public function setItems(arr:Array):void{
 			items=arr;
-			itemList.dataProvider=new ArrayCollection(arr);
+			panel.items=arr;
 		}
 		
 		public function open(event:MouseEvent):void{

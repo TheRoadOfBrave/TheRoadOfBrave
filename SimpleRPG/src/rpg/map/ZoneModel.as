@@ -4,6 +4,7 @@ package rpg.map
 	import rpg.model.GameEventObject;
 	import rpg.model.GameInterpreter;
 	import rpg.script.BattleScript;
+	import rpg.script.RpgScript;
 
 	public class ZoneModel
 	{
@@ -67,14 +68,19 @@ package rpg.map
 			
 		}
 		
-		public function get script():EventPage{
-			var eventPage:EventPage=scripts[step];
+		public function get script():RpgScript{
+			var eventPage:RpgScript=scripts[step];
 		
 			return eventPage;
 		}
 		
 		public function go():void{
 			step++;
+			if (step>=scripts.length){
+				trace("超出脚本范围索引");
+				step=scripts.length-1;
+			}
+			bg=script.bg;
 		}
 		
 		public function buildScript():void{
@@ -87,5 +93,10 @@ package rpg.map
 		
 		}
 		
+		public function stepTo(value:int):void
+		{
+			step=value;
+			bg=script.bg;
+		}
 	}
 }

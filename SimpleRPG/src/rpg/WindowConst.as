@@ -2,6 +2,7 @@ package rpg
 {
 	public final class WindowConst
 	{
+		public static const SCENE_TITLE:String="scene_title";
 		public static const SCENE_BATTLE:String="scene_battle";
 		public static const SCENE_CITY:String="scene_city";
 		public static const SCENE_ZONE:String="scene_zone";

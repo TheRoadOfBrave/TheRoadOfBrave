@@ -5,12 +5,13 @@ package rpg.script
 	import rpg.battle.event.ScriptCmdEvent;
 	import rpg.model.EventPage;
 	
-	public class BattleScript extends EventPage
+	public class BattleScript extends RpgScript
 	{
-		private var end:Boolean=false;
+		
 		public function BattleScript()
 		{
 			trigger=3;
+			bg=2
 		}
 		override public function get condition():Boolean
 		{
@@ -31,18 +32,15 @@ package rpg.script
 						cmd.params[2]="范德萨"
 						cmd.params[4]=2
 				},
-				function ():void{
-					//	cmd.code=CodeConst;
-					cmd.code=301;
-					cmd.params[0]=0
-					cmd.params[1]=1
-					end=true;
-				},
-				function ():void{
-					cmd.code=501;
-					cmd.params[0]=0
-					cmd.params[1]=1
-				},
+				
+//				function ():void{
+////					//	cmd.code=CodeConst;
+////					cmd.code=301;
+////					cmd.params[0]=0
+////					cmd.params[1]=1
+////					end=true;
+//				},
+				
 				function ():void{
 					cmd.code=502;
 					cmd.params[0]={type:1,id:1,n:1,price:100}

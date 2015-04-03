@@ -12,17 +12,23 @@ package rpg.map
 	
 	import mx.graphics.ImageSnapshot;
 	
+	import mk.TweenMac;
 	import mk.util.DisplayUtil;
 	
 	import org.flexlite.domUI.components.Button;
 	import org.flexlite.domUI.components.Group;
 	import org.flexlite.domUI.components.List;
+	import org.flexlite.domUI.components.Panel;
+	import org.flexlite.domUI.components.SkinnableContainer;
 	import org.flexlite.domUI.components.UIAsset;
 	import org.flexlite.domUI.core.UIComponent;
+	import org.flexlite.domUI.utils.callLater;
 	
 	import rpg.Cache;
+	import rpg.GameSound;
 	import rpg.map.view.Chest;
 	import rpg.map.view.InnView;
+	import rpg.util.UIUtil;
 	
 	public class ZoneView extends Group
 	{
@@ -31,6 +37,8 @@ package rpg.map
 		private var _moveable:Boolean;
 		private var backgroundBox:UIComponent;
 		public var inn:InnView;
+		private var window:Group;
+		private var canvas:UIComponent;
 		public function ZoneView()
 		{
 			super();
@@ -63,6 +71,10 @@ package rpg.map
 			inn=new InnView;
 			inn.x=110;
 			inn.y=108;
+			window=new Group;
+			addElement(window);
+			canvas=new UIComponent;
+			addElement(canvas);
 		}
 		
 		public function get moveable():Boolean
@@ -78,6 +90,7 @@ package rpg.map
 		
 		protected function goHandler(event:MouseEvent):void
 		{
+			clearWindow();
 			dispatchEvent(new Event("go",false));
 		}
 		
@@ -134,26 +147,40 @@ package rpg.map
 			chest=new Chest;
 			chest.setItems(items);
 			chest.x=240;
-			chest.y=180;
+			chest.y=210;
 			chest.addEventListener(Chest.OPEN,openChest);
-			addElement(chest);
+			window.addElement(chest);
 		}
 		
 		protected function openChest(event:Event):void
 		{
-			var list:List=chest.itemList;
-			list.alpha=0;
-			list.x=chest.x;
-			list.y=chest.y;
-			list.scaleX=list.scaleY=0.1;
-			TweenLite.to(list,0.8,{x:200,y:60,alpha:1,scaleX:1,scaleY:1});
-			addElement(list);
+			var panel:SkinnableContainer=chest.panel;
 			
+			//list.alpha=0;
+			panel.x=chest.x-100;
+			panel.y=chest.y-150;
+			window.addElement(panel);
+			panel.visible=false;
+		//	list.scaleX=list.scaleY=0.1;
+			GameSound.getInstance().playChest();
+			callLater(function ():void{
+				new TweenMac(panel,canvas,true).from(chest.x,chest.y-22,0.4);
+			})
+			
+		//	TweenLite.to(list,0.8,{x:200,y:60,alpha:1,scaleX:1,scaleY:1});
+			
+			
+		}
+		
+		public function clearWindow():void{
+			UIUtil.clear(window);
+			DisplayUtil.clear(canvas);
+			canvas.graphics.clear();
 		}
 		
 		public function showInn(gold:int):void{
 			inn.gold=gold;
-			addElement(inn);
+			window.addElement(inn);
 		}
 		
 		public function showShop():void{

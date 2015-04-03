@@ -11,6 +11,7 @@ package rpg.model
 	public class Party extends Troop
 	{
 		private static var _instance:Party;
+		public var scene:String;
 		public var troopId:int
 		public var actors:Array;
 		private var _gold:int;
@@ -29,7 +30,12 @@ package rpg.model
 
 		
 
-		
+		/*public static function copy(party:Party):Party{
+				
+				_instance=party;
+				
+			return _instance;
+		}*/
 		
 
 		public static function getInstance():Party{
@@ -66,9 +72,9 @@ package rpg.model
 		}
 		
 		
-		public function get troopData():XML{
-			return db.getTroop(troopId);
-		}
+//		public function get troopData():XML{
+//			return db.getTroop(troopId);
+//		}
 		
 		override public function get isAllDead():Boolean{
 			return super.isAllDead;
@@ -76,6 +82,16 @@ package rpg.model
 		
 		override public function get members():Array{
 			return actors;
+		}
+		
+		/**
+		 * 
+			# ● 获取领队
+		 * @return 
+		 * 
+		 */
+		public function get leader():Actor{
+			return members[0]
 		}
 		
 		
@@ -101,6 +117,33 @@ package rpg.model
 		     
 			
 		}
+		
+		/**
+		 * 
+			# ● 角色入队
+		 * @param actor_id
+		 * 
+		 */
+		public function  add_actor(actor_id:int):void{
+//			actors.push();
+//			@actors.push(actor_id) unless @actors.include?(actor_id)
+		//	$game_player.refresh
+		//	$game_map.need_refresh = true
+		}
+		
+		/**
+			# ● 角色离队
+		 * 
+		 * @param actor_id
+		 * 
+		 */
+		public function remove_actor(actor_id:int):void{
+		//	@actors.delete(actor_id)
+		//	$game_player.refresh
+		//	$game_map.need_refresh = true
+		}
+		
+		
 		
 		public function addLearning(actor:Actor):void{
 			var classId:int=actor.classId;

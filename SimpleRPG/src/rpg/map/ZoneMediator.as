@@ -10,6 +10,7 @@ package rpg.map
 	import rpg.WindowConst;
 	import rpg.battle.event.BattleEvent;
 	import rpg.battle.event.ScriptCmdEvent;
+	import rpg.events.AppEvent;
 	import rpg.events.MapEvent;
 	import rpg.events.SceneEvent;
 	import rpg.model.MonsterTroop;
@@ -33,9 +34,22 @@ package rpg.map
 		
 		override public function initialize():void	{
 			eventMap.mapListener( eventDispatcher, BattleEvent.FINISH, battleFinishHandler );
+			eventMap.mapListener( eventDispatcher, MapEvent.TRANSFER, transferHandler );
 			eventMap.mapListener( eventDispatcher, MapEvent.VISIT, scriptHandler );
 			addViewListener("go",goHandler);
 			addViewListener("arrive",arriveHandler);
+		}
+		
+		private function transferHandler(event:MapEvent):void
+		{
+			if (event.data==null){
+				//model.stepTo(model.step);
+			}else{
+				model.stepTo(event.data[0]);
+			}
+			
+			view.setBackground(model.bg);
+			
 		}
 		
 		private function scriptHandler(event:MapEvent):void
@@ -100,14 +114,15 @@ package rpg.map
 			}
 			
 			//	model.interpreter.next();
-			
+			dispatch(new AppEvent(AppEvent.SAVE));
 			
 		}
 		
 		private function goHandler(event:Event):void
 		{
 				model.go();
-				view.go(Random.integet(10),false);
+				dispatch(new AppEvent(AppEvent.SAVE));
+				view.go(model.bg,false);
 		}		
 		
 		private function arriveHandler(event:Event):void
@@ -119,7 +134,7 @@ package rpg.map
 			cmdEvent.params=[0,monsterId]
 			dispatch(cmdEvent);*/
 			
-			model.setup_starting_event();
+		//	model.setup_starting_event();
 		}
 			
 			

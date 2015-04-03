@@ -12,6 +12,7 @@ package rpg.city
 	import rpg.WindowConst;
 	import rpg.battle.event.BattleEvent;
 	import rpg.battle.event.ScriptCmdEvent;
+	import rpg.events.GameEvent;
 	import rpg.events.MapEvent;
 	import rpg.events.SceneEvent;
 	import rpg.events.WindowEvent;
@@ -45,10 +46,9 @@ package rpg.city
 //			
 			
 			view.addEventListener(MouseEvent.CLICK,click);
-			party=Party.getInstance();
 			
 			//城市视图加入后 ，游戏初始化完成 ，跳转到 第一个场景
-			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
+		//	dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
 			
 		}
 		
@@ -130,6 +130,7 @@ package rpg.city
 		
 		private function rest():void
 		{
+			party=Party.getInstance();
 			GameData.getInstance().day++;
 			if (party.food>0){
 				party.food--;
@@ -169,7 +170,7 @@ package rpg.city
 						model.update();*/
 						
 						
-						dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_ZONE));
+						dispatch(new GameEvent(GameEvent.START_JOURNEY));
 						break;
 					case "shopBtn":
 						var goods:Array=[];

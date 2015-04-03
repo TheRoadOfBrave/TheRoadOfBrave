@@ -20,7 +20,7 @@ package rpg.bag
 	
 	public class Bag extends Group
 	{
-		private var party:Party
+		public var party:Party
 		private var itemList:List;
 		private var itemArrc:ArrayCollection;
 		private var item:Item;
@@ -31,7 +31,6 @@ package rpg.bag
 		
 		private function init():void
 		{
-			party=Party.getInstance();
 			itemList=new List;
 			itemList.width=450;
 			itemList.height=60;
@@ -64,7 +63,7 @@ package rpg.bag
 		
 		
 		public function get user():Actor{
-			var actor:Actor=Party.getInstance().actors[0];
+			var actor:Actor=Party.getInstance().leader;
 			
 			return actor;
 		}

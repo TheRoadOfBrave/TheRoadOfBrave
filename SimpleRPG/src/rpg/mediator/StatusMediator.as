@@ -1,13 +1,9 @@
 package rpg.mediator
 {
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
 	import robotlegs.bender.bundles.mvcs.Mediator;
 	
-	import rpg.Application;
 	import rpg.WindowConst;
-	import rpg.events.DialogEvent;
 	import rpg.events.GameEvent;
 	import rpg.events.ItemEvent;
 	import rpg.events.SceneEvent;
@@ -29,7 +25,7 @@ package rpg.mediator
 		
 		override public function initialize():void
 		{
-//			eventMap.mapListener( eventDispatcher, SceneEvent.GOTO, gotoSceneHandler );
+			eventMap.mapListener( eventDispatcher, SceneEvent.GOTO, gotoSceneHandler );
 //			eventMap.mapListener( eventDispatcher, DialogEvent.SHOW, showDialogHandler );
 //			eventMap.mapListener( eventDispatcher, ItemEvent.USE, useItemHandler );
 			eventMap.mapListener( eventDispatcher, GameEvent.CHANGE_EQUIP,changeEquip );
@@ -37,8 +33,35 @@ package rpg.mediator
 			
 			
 			//游戏MASTER设置
-			party=Party.getInstance();
+		
 			
+		}
+		
+		private function gotoSceneHandler(event:SceneEvent):void
+		{
+			if (event.type==SceneEvent.GOTO){
+				switch(event.scene)
+				{
+					case WindowConst.SCENE_CITY:
+					case WindowConst.SCENE_MAP:
+					case WindowConst.SCENE_ZONE:
+						update();
+						break;
+					default:
+						break;
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		private function update():void{
+			party=Party.getInstance();
+			view.setBag(party.bag.items);
+			view.hero=party.leader;
+			view.refreshEquipt();
 		}
 		
 		private function changeEquip(event:GameEvent):void

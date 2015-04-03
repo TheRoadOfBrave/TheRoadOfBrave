@@ -39,7 +39,14 @@ package rpg.model
 			}
 			return list;
 		}
-
+		public function set itemCon(value:Object):void
+		{
+			_items=value;
+		}
+		public function get itemCon():Object
+		{
+			return _items;
+		}
 
 		public function get equip_items():ArrayCollection
 		{

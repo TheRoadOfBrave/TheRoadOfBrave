@@ -11,6 +11,7 @@ package rpg.events
 		public static const CANCEL:String="canecl_item";
 		public static const CLICK:String="click_item";
 		public static const USE:String="use_item";
+		public static const GET:String="get";
 		
 		public var data:Object;
 		public var item:IPackItem;
@@ -18,6 +19,7 @@ package rpg.events
 		 *代表多个物品 或物品使用对象 
 		 */
 		public var arr:Array;
+		
 		public function ItemEvent(type:String, item:IPackItem,bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);

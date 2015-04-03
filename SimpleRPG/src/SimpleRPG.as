@@ -1,7 +1,12 @@
 package
 {
 	import flash.display.Sprite;
+	
+	import org.flexlite.domUI.components.Button;
+	
 	import rpg.Application;
+	
+	import skins.BtnSkin;
 	 
 	[SWF(backgroundColor="0xffffff", frameRate="30", width="480", height="600")]
 	public class SimpleRPG extends Sprite
@@ -18,7 +23,10 @@ package
 			context.run(this);
 			app=new Application;
 			addChild(app);
-			
+			var btn:Button=new Button;
+			btn.label="ABCD"
+				btn.skinName=BtnSkin;
+			addChild(btn);
 		}
 		
 	}

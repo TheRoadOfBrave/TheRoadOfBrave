@@ -40,7 +40,7 @@ package rpg.model
 		  
 		public var plural:Boolean;
 		public var gclass:GameClass;
-		public function Actor(id:int)
+		public function Actor(id:int=1)
 		{
 			super();
 			this.index = index;
@@ -309,7 +309,7 @@ package rpg.model
 			var arr:Array=[];
 			arr=equips.filter(testWeapon);
 				function testWeapon(element:EquipItem, index:int, arr:Array):Boolean {
-					return  (element.isWeapon);
+					return  (element && element.isWeapon);
 				}
 				
 			return arr;
@@ -325,7 +325,7 @@ package rpg.model
 			var arr:Array=[];
 			arr=equips.filter(testArmor);
 			function testArmor(element:EquipItem, index:int, arr:Array):Boolean {
-				return  (element.isArmor);
+				return  (element && element.isArmor);
 			}
 			return arr;
 		}

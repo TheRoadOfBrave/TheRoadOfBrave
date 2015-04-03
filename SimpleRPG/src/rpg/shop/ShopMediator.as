@@ -84,7 +84,7 @@ package rpg.shop
 			}else{
 				if (item is EquipItem){
 					item=db.getWeapon(BaseItem(item).id);
-					var hero:Actor=party.actors[0];
+					var hero:Actor=party.leader;
 					var eq:EquipItem=item as EquipItem;
 					if(hero.equippable(eq)){
 						var slot:uint=hero.empty_slot(eq.etype_id);

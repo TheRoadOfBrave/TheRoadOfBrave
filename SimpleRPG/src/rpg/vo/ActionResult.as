@@ -29,7 +29,7 @@ package rpg.vo
 	 	 public var success:Boolean;
 	 	
 		 private var db:DataBase=DataBase.getInstance();
-		public function ActionResult(battler:Battler)
+		public function ActionResult(battler:Battler=null)
 		{
 			this.battler=battler;
 			clear();
@@ -70,6 +70,7 @@ package rpg.vo
 		public function clear_status_effects():void{
 			added_states = []
 			removed_states = []
+			remained_states=[];
 			added_buffs = []
 			added_debuffs = []
 			removed_buffs = []

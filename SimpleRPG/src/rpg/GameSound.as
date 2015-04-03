@@ -3,16 +3,17 @@ package rpg
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	
-	import mx.core.SoundAsset;
-	import mx.validators.EmailValidator;
 	
 	import mk.LibUtil;
 	
 	public class GameSound
 	{
-		//[Embed(source="Sound.swf",symbol="BTNsound")]//按钮
+		public static var CLICK:String="Click";
+		public static var EQUIPT:String="Equipt1";
+		public static var OPEN:String="Open1";
 		
-		private static var embed:SoundEmbed;
+		
+		
 		public  var on:Boolean=true;
 		private static var _instance:GameSound;
 		public function GameSound()
@@ -23,7 +24,6 @@ package rpg
 			if (!_instance) {
 				
 				_instance=new GameSound();
-				embed=new SoundEmbed();
 			}
 			return _instance;
 		}
@@ -65,13 +65,14 @@ package rpg
 			
 		}
 		
-		public  function playHit():void{
-			playSound("hit_mp3");
+		public  function playClick():void{
+			play(CLICK);
 		}
 		
-		public  function playAtk():void{
-			playSound("swing_mp3");
+		public  function playChest():void{
+			play(OPEN);
 		}
+		
 		
 	}
 }

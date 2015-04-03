@@ -31,6 +31,7 @@ package rpg.view
 	import rpg.events.ItemEvent;
 	import rpg.excompt.EquiptList;
 	import rpg.model.Actor;
+	import rpg.model.Party;
 	import rpg.view.irender.BagItemRender;
 	import rpg.view.irender.EqueitRender;
 	import rpg.vo.EquipItem;
@@ -202,6 +203,9 @@ package rpg.view
 		}
 		
 		public function setBag(items:ArrayCollection):void{
+			var party:Party=Party.getInstance();
+			bag.party=party;
+			gold=party.gold;
 			bag.setBag(items);
 		}
 		
@@ -245,7 +249,7 @@ package rpg.view
 		}
 		
 		public function update():void{
-			ui.name_txt.text=hero.battler_name;
+			ui.name_txt.text=hero.name;
 			ui.lv_txt.text="LEVEL "+hero.level;
 			hp_lb.text=hero.hp+"/"+hero.mhp;
 			mp_lb.text=hero.mp+"/"+hero.mmp;

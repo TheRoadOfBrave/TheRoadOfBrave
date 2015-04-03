@@ -1,7 +1,6 @@
 package rpg.model
 {
 	
-	import rpg.DataBase;
 	import rpg.vo.ActionResult;
 	import rpg.vo.Item;
 	import rpg.vo.RpgState;
@@ -74,7 +73,13 @@ package rpg.model
 			animation_id = 0;
 			//	    skinId=1;
 			//	    animation_hit = false;
-			
+			reset();
+		
+		}
+		
+		//删除数组中与参数相同的ID项
+
+		public function reset():void{
 			result=new ActionResult(this);
 			action = new BattleAction(this);
 			effector=new Effector();
@@ -83,8 +88,7 @@ package rpg.model
 			clear_action_results();
 		}
 		
-		//删除数组中与参数相同的ID项
-
+	
 	
 
 		

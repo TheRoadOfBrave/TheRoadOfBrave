@@ -69,9 +69,10 @@ package rpg.mediator
 		
 			
 			//游戏MASTER设置
-			view.setup();
+//			view.setup();
 			//转到第一个场景
-			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
+			//dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_CITY));
+			dispatch(new SceneEvent(SceneEvent.GOTO,WindowConst.SCENE_TITLE));
 			
 		}
 		
@@ -137,6 +138,7 @@ package rpg.mediator
 			switch(event.type)
 			{
 				case SceneEvent.GOTO:
+					
 					gotoScene(event.scene);
 					break;
 				default:
@@ -153,6 +155,7 @@ package rpg.mediator
 		 */
 		private function gotoScene(scene:String):void{
 			WindowManager.closeAllWindow();
+			Party.getInstance().scene=scene;
 			view.scene=scene;
 			view.gotoScene(scene)
 			switch(scene)
@@ -167,7 +170,6 @@ package rpg.mediator
 				case WindowConst.SCENE_MAP:
 					break;
 				case WindowConst.SCENE_ZONE:
-					zoneModel.buildScript();
 					//view.battleGroup.addElement(battleScene.view);
 					//var party:Party=Party.getInstance()
 					battleScene.dispose();
@@ -180,6 +182,7 @@ package rpg.mediator
 			}
 			
 		}
+		
 		
 	
 		
